@@ -1,0 +1,113 @@
+{{ block title }}Task 2, Ambiguity Attitudes Elicitation{{ endblock }}
+{{ block content }}
+<head>
+    <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
+    </head>
+    <body>
+        <br>
+        Below, you need to make 10 choices between pairs of boxes,
+        Box K and Box U. 
+       </br>
+       <br>
+       Each of the two boxes contains 100 balls. The
+       color of the balls is either <b> <font color="Purple"> Purple </font> </b> or <b> <font color="orange"> Orange </font> </b>.
+    </br>
+    <br>
+    The fraction of <b> <font color="Purple"> Purple </font> </b> and <b> <font color="orange"> Orange </font> </b> balls are Known in
+    Box K (column 1 in the table below). The numbers in the first column means the number of balls (out of 100) that are <b> <font color="Purple"> Purple </font> </b>.
+   </br>
+   <br>
+   The fraction of <b> <font color="Purple"> Purple </font> </b> and <b> <font color="orange"> Orange </font> </b> balls are Unknown in
+    Box U (Column 2 in the table below). Since the fraction is unknown in Box U, you only see "Unknown" in the second column.
+    </br>
+    <br>
+    You need to choose a box (K or U), and one ball is drawn randomly from the selected box. You will earn a fixed $ if a <b> <font color="Purple"> Purple </font> </b> ball is drawn. 
+    </br>
+    <br>
+    Please make your choices on column 3 below:
+    </br>
+    <p>  </p>
+        <table>
+          <tr>
+            <th>Box K</th>
+            <th>Box U</th>
+            <th>Your Choice</th>
+          </tr>
+          <tr>
+            <td>100</td>
+            <td>Unknown</td>
+            <td> {% formfield player.Ambiguity_attitude_elicit10 %}</td>
+          </tr>
+          <tr>
+            <td>90</td>
+            <td>Unknown</td>
+            <td>{% formfield player.Ambiguity_attitude_elicit9 %}</td>
+          </tr>
+          <tr>
+            <td>80</td>
+            <td>Unknown</td>
+            <td>{% formfield player.Ambiguity_attitude_elicit8 %}</td>
+          </tr>
+          <tr>
+            <td>70</td>
+            <td>Unknown</td>
+            <td>{% formfield player.Ambiguity_attitude_elicit7 %}</td>
+          </tr>
+          <tr>
+            <td>60</td>
+            <td>Unknown</td>
+            <td>{% formfield player.Ambiguity_attitude_elicit6 %}</td>
+          </tr>
+          <tr>
+            <td>50</td>
+            <td>Unknown</td>
+            <td>{% formfield player.Ambiguity_attitude_elicit5 %}</td>
+          </tr>
+          <tr>
+            <td>40</td>
+            <td>Unknown</td>
+            <td>{% formfield player.Ambiguity_attitude_elicit4 %}</td>
+          </tr>
+          <tr>
+            <td>30</td>
+            <td>Unknown</td>
+            <td>{% formfield player.Ambiguity_attitude_elicit3 %}</td>
+          </tr>
+          <tr>
+            <td>20</td>
+            <td>Unknown</td>
+            <td>{% formfield player.Ambiguity_attitude_elicit2 %}</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>Unknown</td>
+            <td>{% formfield player.Ambiguity_attitude_elicit1 %}</td>
+          </tr>
+        </table>
+        
+        </body>
+    <p>
+        
+    </p>
+   
+    
+
+    {{ next_button }}
+
+{{ endblock }}
