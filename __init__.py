@@ -208,9 +208,9 @@ class Task3_priv_signal(Page):
               elif player.id_in_group== 2:
                   sigma_signal = 1
               elif player.id_in_group== 3:
-                  sigma_signal = 2
+                  sigma_signal = 7
               elif player.id_in_group== 4:
-                  sigma_signal = 2
+                  sigma_signal = 7
               else:
                   sigma_signal = None
             ### Round 2 ###
@@ -232,9 +232,9 @@ class Task3_priv_signal(Page):
               elif player.id_in_group== 2:
                   sigma_signal = 5
               elif player.id_in_group== 3:
-                  sigma_signal = 7
+                  sigma_signal = 8
               elif player.id_in_group== 4:
-                  sigma_signal = 7
+                  sigma_signal = 8
               else:
                   sigma_signal = None
 
