@@ -4,7 +4,7 @@ from otree.api import *
 class C(BaseConstants):
     NAME_IN_URL = 'motivated_ambiguity'
     PLAYERS_PER_GROUP = None
-    NUM_ROUNDS = 3
+    NUM_ROUNDS = 4
 
 
 class Subsession(BaseSubsession):
@@ -131,6 +131,18 @@ class Task3_color(Page):
               else:
                   color = None
             ### Round 3 ###
+             elif player.round_number == 3:
+              if player.participant.vars['ranking']== 1:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 3:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 2:
+                  color = 'red'
+              elif player.participant.vars['ranking']== 4:
+                  color = 'red'
+              else:
+                  color = None
+            ### Round 4 ###
              else:
               if player.participant.vars['ranking']== 2:
                   color = 'green'
@@ -147,11 +159,12 @@ class Task3_color(Page):
  #               'Ambiguity_attitude_elicit1': player.Ambiguity_attitude_elicit1,
                 'ranking':player.participant.vars['ranking'],
                 'color': color,
+                'round_number':player.round_number,
    #             'colorgreen':colorgreen,
            }
  
 
-class Task3_priv_signal(Page):
+class Task3_priv_signal1(Page):
     form_model = 'player'
     form_fields = ['Guess_of_theta_signal', 'Guess_of_sigma_signal']
     def vars_for_template(player):
@@ -184,7 +197,19 @@ class Task3_priv_signal(Page):
                   color = 'red'
               else:
                   color = None
-            ### Round 3 ###
+             ### Round 3 ###
+             elif player.round_number == 3:
+              if player.participant.vars['ranking']== 1:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 3:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 2:
+                  color = 'red'
+              elif player.participant.vars['ranking']== 4:
+                  color = 'red'
+              else:
+                  color = None
+            ### Round 4 ###
              else:
               if player.participant.vars['ranking']== 2:
                   color = 'green'
@@ -204,46 +229,183 @@ class Task3_priv_signal(Page):
             ### Round 1 ###
              if player.round_number == 1:
               if player.id_in_group== 1:
-                  sigma_signal = 1
+                  sigma_signal1 = 1
               elif player.id_in_group== 2:
-                  sigma_signal = 1
+                  sigma_signal1 = 1
               elif player.id_in_group== 3:
-                  sigma_signal = 7
+                  sigma_signal1 = 7
               elif player.id_in_group== 4:
-                  sigma_signal = 7
+                  sigma_signal1 = 7
               else:
-                  sigma_signal = None
+                  sigma_signal1 = None
             ### Round 2 ###
              elif player.round_number == 2:
               if player.id_in_group== 1:
-                  sigma_signal = 3
+                  sigma_signal1 = 3
               elif player.id_in_group== 2:
-                  sigma_signal = 3
+                  sigma_signal1 = 3
               elif player.id_in_group== 3:
-                  sigma_signal = 4
+                  sigma_signal1 = 4
               elif player.id_in_group== 4:
-                  sigma_signal = 4
+                  sigma_signal1 = 4
               else:
-                  sigma_signal = None
+                  sigma_signal1 = None
             ### Round 3 ###
+             elif player.round_number == 3:
+              if player.id_in_group== 1:
+                  sigma_signal1 = 3
+              elif player.id_in_group== 2:
+                  sigma_signal1 = 3
+              elif player.id_in_group== 3:
+                  sigma_signal1 = 4
+              elif player.id_in_group== 4:
+                  sigma_signal1 = 4
+              else:
+                  sigma_signal1 = None
+            ### Round 4 ###
              else:
               if player.id_in_group== 1:
-                  sigma_signal = 5
+                  sigma_signal1 = 5
               elif player.id_in_group== 2:
-                  sigma_signal = 5
+                  sigma_signal1 = 5
               elif player.id_in_group== 3:
-                  sigma_signal = 8
+                  sigma_signal1 = 8
               elif player.id_in_group== 4:
-                  sigma_signal = 8
+                  sigma_signal1 = 8
               else:
-                  sigma_signal = None
+                  sigma_signal1 = None
 
              return {
                 'ranking':player.participant.vars['ranking'],
                 'color': color,
-                'sigma_signal':sigma_signal,
+                'sigma_signal1':sigma_signal1,
+                'round_number':player.round_number,
            }
  
+class Task3_priv_signal2(Page):
+        @staticmethod
+        def is_displayed(player):
+          if player.round_number == 1:
+             return True
+          elif player.round_number == 3:
+              return True
+          else:
+             return False
+        form_model = 'player'
+        form_fields = ['Guess_of_theta_signal', 'Guess_of_sigma_signal']
+        def vars_for_template(player):
+            ############################################################
+            # Below, we store predetermined color parameters in the 
+            # following code. Parameters are round_number and iq_ranking
+            # dependent. We can change them anytime.
+            ############################################################
+            ### Round 1 ###
+             if player.round_number == 1:
+              if player.participant.vars['ranking']== 1:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 2:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 3:
+                  color = 'red'
+              elif player.participant.vars['ranking']== 4:
+                  color = 'red'
+              else:
+                  color = None
+            ### Round 2 ###
+             elif player.round_number == 2:
+              if player.participant.vars['ranking']== 1:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 3:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 2:
+                  color = 'red'
+              elif player.participant.vars['ranking']== 4:
+                  color = 'red'
+              else:
+                  color = None
+             ### Round 3 ###
+             elif player.round_number == 3:
+              if player.participant.vars['ranking']== 1:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 3:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 2:
+                  color = 'red'
+              elif player.participant.vars['ranking']== 4:
+                  color = 'red'
+              else:
+                  color = None
+            ### Round 4 ###
+             else:
+              if player.participant.vars['ranking']== 2:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 4:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 1:
+                  color = 'red'
+              elif player.participant.vars['ranking']== 3:
+                  color = 'red'
+              else:
+                  color = None
+            ############################################################
+            # Below, we store predetermined sigma parameters in the 
+            # following code. Parameters are round_number and player_id
+            # dependent. We can change them anytime.
+            ############################################################
+            ### Round 1 ###
+             if player.round_number == 1:
+              if player.id_in_group== 1:
+                  sigma_signal2 = 200
+              elif player.id_in_group== 2:
+                  sigma_signal2 = 200
+              elif player.id_in_group== 3:
+                  sigma_signal2 = 200
+              elif player.id_in_group== 4:
+                  sigma_signal2 = 200
+              else:
+                  sigma_signal2 = None
+            ### Round 2 ###
+             elif player.round_number == 2:
+              if player.id_in_group== 1:
+                  sigma_signal2 = 200
+              elif player.id_in_group== 2:
+                  sigma_signal2 = 200
+              elif player.id_in_group== 3:
+                  sigma_signal2 = 200
+              elif player.id_in_group== 4:
+                  sigma_signal2 = 200
+              else:
+                  sigma_signal2 = None
+            ### Round 3 ###
+             elif player.round_number == 3:
+              if player.id_in_group== 1:
+                  sigma_signal2 = 200
+              elif player.id_in_group== 2:
+                  sigma_signal2 = 200
+              elif player.id_in_group== 3:
+                  sigma_signal2 = 200
+              elif player.id_in_group== 4:
+                  sigma_signal2 = 200
+              else:
+                  sigma_signal2 = None
+            ### Round 4 ###
+             else:
+              if player.id_in_group== 1:
+                  sigma_signal2 = 200
+              elif player.id_in_group== 2:
+                  sigma_signal2 = 200
+              elif player.id_in_group== 3:
+                  sigma_signal2 = 200
+              elif player.id_in_group== 4:
+                  sigma_signal2 = 200
+              else:
+                  sigma_signal2 = None
 
+             return {
+                'ranking':player.participant.vars['ranking'],
+                'color': color,
+                'sigma_signal2':sigma_signal2,
+                'round_number':player.round_number,
+           }
 
-page_sequence = [Task2, Task3_color, Task3_priv_signal]
+page_sequence = [Task2, Task3_color, Task3_priv_signal1, Task3_priv_signal2]
