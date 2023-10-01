@@ -4,7 +4,7 @@ from otree.api import *
 class C(BaseConstants):
     NAME_IN_URL = 'motivated_ambiguity'
     PLAYERS_PER_GROUP = None
-    NUM_ROUNDS = 4
+    NUM_ROUNDS = 6
 
 
 class Subsession(BaseSubsession):
@@ -143,6 +143,30 @@ class Task3_color(Page):
               else:
                   color = None
             ### Round 4 ###
+             elif player.round_number == 4:
+              if player.participant.vars['ranking']== 1:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 3:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 2:
+                  color = 'red'
+              elif player.participant.vars['ranking']== 4:
+                  color = 'red'
+              else:
+                  color = None
+            ### Round 5 ###
+             elif player.round_number == 5:
+              if player.participant.vars['ranking']== 1:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 3:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 2:
+                  color = 'red'
+              elif player.participant.vars['ranking']== 4:
+                  color = 'red'
+              else:
+                  color = None
+            ### Round 6 ###
              else:
               if player.participant.vars['ranking']== 2:
                   color = 'green'
@@ -209,7 +233,31 @@ class Task3_priv_signal1(Page):
                   color = 'red'
               else:
                   color = None
-            ### Round 4 ###
+             ### Round 4 ###
+             elif player.round_number == 4:
+              if player.participant.vars['ranking']== 1:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 3:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 2:
+                  color = 'red'
+              elif player.participant.vars['ranking']== 4:
+                  color = 'red'
+              else:
+                  color = None
+             ### Round 5 ###
+             elif player.round_number == 5:
+              if player.participant.vars['ranking']== 1:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 3:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 2:
+                  color = 'red'
+              elif player.participant.vars['ranking']== 4:
+                  color = 'red'
+              else:
+                  color = None
+            ### Round 6 ###
              else:
               if player.participant.vars['ranking']== 2:
                   color = 'green'
@@ -263,6 +311,30 @@ class Task3_priv_signal1(Page):
               else:
                   sigma_signal1 = None
             ### Round 4 ###
+             elif player.round_number == 4:
+              if player.id_in_group== 1:
+                  sigma_signal1 = 3
+              elif player.id_in_group== 2:
+                  sigma_signal1 = 3
+              elif player.id_in_group== 3:
+                  sigma_signal1 = 4
+              elif player.id_in_group== 4:
+                  sigma_signal1 = 4
+              else:
+                  sigma_signal1 = None
+            ### Round 5 ###
+             elif player.round_number == 5:
+              if player.id_in_group== 1:
+                  sigma_signal1 = 3
+              elif player.id_in_group== 2:
+                  sigma_signal1 = 3
+              elif player.id_in_group== 3:
+                  sigma_signal1 = 4
+              elif player.id_in_group== 4:
+                  sigma_signal1 = 4
+              else:
+                  sigma_signal1 = None
+            ### Round 6 ###
              else:
               if player.id_in_group== 1:
                   sigma_signal1 = 5
@@ -288,6 +360,8 @@ class Task3_priv_signal2(Page):
           if player.round_number == 1:
              return True
           elif player.round_number == 3:
+              return True
+          elif player.round_number == 4:
               return True
           else:
              return False
@@ -335,7 +409,31 @@ class Task3_priv_signal2(Page):
                   color = 'red'
               else:
                   color = None
-            ### Round 4 ###
+             ### Round 4 ###
+             elif player.round_number == 4:
+              if player.participant.vars['ranking']== 1:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 3:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 2:
+                  color = 'red'
+              elif player.participant.vars['ranking']== 4:
+                  color = 'red'
+              else:
+                  color = None
+             ### Round 5 ###
+             elif player.round_number == 5:
+              if player.participant.vars['ranking']== 1:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 3:
+                  color = 'green'
+              elif player.participant.vars['ranking']== 2:
+                  color = 'red'
+              elif player.participant.vars['ranking']== 4:
+                  color = 'red'
+              else:
+                  color = None
+            ### Round 6 ###
              else:
               if player.participant.vars['ranking']== 2:
                   color = 'green'
@@ -389,6 +487,30 @@ class Task3_priv_signal2(Page):
               else:
                   sigma_signal2 = None
             ### Round 4 ###
+             elif player.round_number == 4:
+              if player.id_in_group== 1:
+                  sigma_signal2 = 200
+              elif player.id_in_group== 2:
+                  sigma_signal2 = 200
+              elif player.id_in_group== 3:
+                  sigma_signal2 = 200
+              elif player.id_in_group== 4:
+                  sigma_signal2 = 200
+              else:
+                  sigma_signal2 = None
+            ### Round 5 ###
+             elif player.round_number == 5:
+              if player.id_in_group== 1:
+                  sigma_signal2 = 200
+              elif player.id_in_group== 2:
+                  sigma_signal2 = 200
+              elif player.id_in_group== 3:
+                  sigma_signal2 = 200
+              elif player.id_in_group== 4:
+                  sigma_signal2 = 200
+              else:
+                  sigma_signal2 = None
+            ### Round 6 ###
              else:
               if player.id_in_group== 1:
                   sigma_signal2 = 200
@@ -407,5 +529,14 @@ class Task3_priv_signal2(Page):
                 'sigma_signal2':sigma_signal2,
                 'round_number':player.round_number,
            }
+class Practice_done(Page):
+        @staticmethod
+        def is_displayed(player):
+              if player.round_number == 2:
+                 return True
+              else:
+                 return False
+#	def before_next_page(self):
+#		self.player.save()
 
-page_sequence = [Task2, Task3_color, Task3_priv_signal1, Task3_priv_signal2]
+page_sequence = [Task2, Task3_color, Task3_priv_signal1, Task3_priv_signal2, Practice_done]
