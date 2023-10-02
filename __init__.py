@@ -1,5 +1,6 @@
 from otree.api import *
-
+import math
+import random
 
 class C(BaseConstants):
     NAME_IN_URL = 'motivated_ambiguity'
@@ -79,14 +80,34 @@ class Player(BasePlayer):
     Guess_of_theta_color = models.IntegerField(
         label='''
         ''')
-    Guess_of_theta_signal = models.IntegerField(
+    Guess_of_theta_signal1 = models.IntegerField(
         label='''
-        Guess of theta
+        Guess of Theta.
         ''')
-    Guess_of_sigma_signal = models.IntegerField(
+    Guess_of_sigma_signal1 = models.StringField(
+        choices=['[-5,+5]','[-10,+10]','[-15,+15]','[-20,+20]','[-25,+25]','[-30,+30]'],
+        widget=widgets.RadioSelectHorizontal,
         label='''
-        Guess of sigma
+        Guess of Sigma.
+        '''
+    )
+    Guess_of_theta_signal2 = models.IntegerField(
+        label='''
+        Guess of Theta.
         ''')
+    Guess_of_sigma_signal2 = models.StringField(
+        choices=['[-5,+5]','[-10,+10]','[-15,+15]','[-20,+20]','[-25,+25]','[-30,+30]'],
+        widget=widgets.RadioSelectHorizontal,
+        label='''
+        Guess of Sigma.
+        '''
+    )
+    Payoff_task2 = models.IntegerField()
+    Payoff_color_theta = models.IntegerField()
+    Payoff_signal1_theta = models.IntegerField()
+    Payoff_signal1_sigma = models.IntegerField()
+    Payoff_signal2_theta = models.IntegerField()
+    Payoff_signal2_sigma = models.IntegerField()
 # FUNCTIONS
 # PAGES
 class Task2(Page):
@@ -190,7 +211,7 @@ class Task3_color(Page):
 
 class Task3_priv_signal1(Page):
     form_model = 'player'
-    form_fields = ['Guess_of_theta_signal', 'Guess_of_sigma_signal']
+    form_fields = ['Guess_of_theta_signal1', 'Guess_of_sigma_signal1']
     def vars_for_template(player):
             ############################################################
             # Below, we store predetermined color parameters in the 
@@ -366,7 +387,7 @@ class Task3_priv_signal2(Page):
           else:
              return False
         form_model = 'player'
-        form_fields = ['Guess_of_theta_signal', 'Guess_of_sigma_signal']
+        form_fields = ['Guess_of_theta_signal2', 'Guess_of_sigma_signal2']
         def vars_for_template(player):
             ############################################################
             # Below, we store predetermined color parameters in the 
@@ -538,5 +559,71 @@ class Practice_done(Page):
                  return False
 #	def before_next_page(self):
 #		self.player.save()
+class Payoff_page(Page):
+        @staticmethod
+        def is_displayed(player):
+              if player.round_number == 6:
+                 return True
+              else:
+                 return False
+              
+        def vars_for_template(player):
+                # The true values of theta are stored in the following list:
+                true_theta_list = [10,20,30,40,50,60]
+              
+                # The following code privdes a random round to determine our payoffs:
+                list_rounds = [3, 4, 5, 6]
+                Random_picked_round = random.choice(list_rounds)
+                # "Random_round_player" tells the followup codes which randomly picked round should we access 
+                # player's elicited beliefs.
+                Random_round_player = player.in_round(Random_picked_round)
+                ###############################################################
+                ###############################################################
+                ###############################################################
+                ############### Payoff in Experimental Points #################
+                ###############################################################
+                ###############################################################
+                ###############################################################
+                # The following code calculates our payoff (in Experimental points) of the randomly selected round.
+                # Please note that "payoff_theta_signal2" is only available in rounds with two private signals.
+                if Random_picked_round == 3:
+                    # Below, we calculate each of the payoff earned by answering each question in that randomly picked round.
+                    payoff_theta_color = (int) (100 - (math.pow((Random_round_player.Guess_of_theta_color - true_theta_list[Random_picked_round-1]),2)))
+                    payoff_theta_signal1 = (int) (100 - (math.pow((Random_round_player.Guess_of_theta_signal1 - true_theta_list[Random_picked_round-1]),2)))
+                    payoff_theta_signal2 = (int) (100 - (math.pow((Random_round_player.Guess_of_theta_signal2 - true_theta_list[Random_picked_round-1]),2)))
+                    # Below, we add up all the payoffs of that randomly picked round for our final payoff.
+                    payoff_of_random_round = payoff_theta_color + payoff_theta_signal1 + payoff_theta_signal2
+                elif Random_picked_round == 4:
+                    # Below, we calculate each of the payoff earned by answering each question in that randomly picked round.
+                    payoff_theta_color = (int) (100 - (math.pow((Random_round_player.Guess_of_theta_color - true_theta_list[Random_picked_round-1]),2)))
+                    payoff_theta_signal1 = (int) (100 - (math.pow((Random_round_player.Guess_of_theta_signal1 - true_theta_list[Random_picked_round-1]),2)))
+                    payoff_theta_signal2 = (int) (100 - (math.pow((Random_round_player.Guess_of_theta_signal2 - true_theta_list[Random_picked_round-1]),2)))
+                    # Below, we add up all the payoffs of that randomly picked round for our final payoff.
+                    payoff_of_random_round = payoff_theta_color + payoff_theta_signal1 + payoff_theta_signal2
+                else:
+                    # Below, we calculate each of the payoff earned by answering each question in that randomly picked round.
+                    payoff_theta_color = (int) (100 - (math.pow((Random_round_player.Guess_of_theta_color - true_theta_list[Random_picked_round-1]),2)))
+                    payoff_theta_signal1 = (int) (100 - (math.pow((Random_round_player.Guess_of_theta_signal1 - true_theta_list[Random_picked_round-1]),2)))
+                    # Below, we add up all the payoffs of that randomly picked round for our final payoff. 
+                    payoff_of_random_round = payoff_theta_color + payoff_theta_signal1
+                ###############################################################
+                ###############################################################
+                ###############################################################
+                ############### Payoff in Real World Currency #################
+                ###############################################################
+                ###############################################################
+                ###############################################################
+                conversion_rate = .002
+                participation_fee = 7
+                player.payoff = math.ceil(payoff_of_random_round*conversion_rate + participation_fee)
+                ###############################################################
+                ###############################################################
+                ###############################################################
+                return {
+                   'true_theta_random_picked_round': true_theta_list[Random_picked_round-1],
+                   'random_picked_round': Random_picked_round,
+                   'payoff': payoff_of_random_round,
+                }
+              
+page_sequence = [Task2, Task3_color, Task3_priv_signal1, Task3_priv_signal2, Practice_done, Payoff_page]
 
-page_sequence = [Task2, Task3_color, Task3_priv_signal1, Task3_priv_signal2, Practice_done]
