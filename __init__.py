@@ -615,7 +615,8 @@ class Payoff_page(Page):
                 ###############################################################
                 conversion_rate = .002
                 participation_fee = 7
-                player.payoff = math.ceil(payoff_of_random_round*conversion_rate + participation_fee)
+                IQ_test_payoff = 5
+                player.payoff = math.ceil(payoff_of_random_round*conversion_rate + participation_fee + IQ_test_payoff)
                 ###############################################################
                 ###############################################################
                 ###############################################################
