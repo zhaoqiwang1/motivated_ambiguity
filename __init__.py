@@ -77,10 +77,10 @@ class Player(BasePlayer):
         label='''
         '''
     )
-    Guess_of_theta_color = models.IntegerField(
+    Guess_of_theta_color = models.IntegerField( min=1,max=100,
         label='''
         ''')
-    Guess_of_theta_signal1 = models.IntegerField(
+    Guess_of_theta_signal1 = models.IntegerField( min=1,max=100,
         label='''
         Guess of Theta.
         ''')
@@ -91,7 +91,7 @@ class Player(BasePlayer):
         Guess of Sigma.
         '''
     )
-    Guess_of_theta_signal2 = models.IntegerField(
+    Guess_of_theta_signal2 = models.IntegerField( min=1,max=100,
         label='''
         Guess of Theta.
         ''')
@@ -108,8 +108,41 @@ class Player(BasePlayer):
     Payoff_signal1_sigma = models.IntegerField()
     Payoff_signal2_theta = models.IntegerField()
     Payoff_signal2_sigma = models.IntegerField()
+    
+    # Below are test questions:
+    Test_question1 = models.StringField(
+        choices=['[-5,+5]','[-10,+10]','[-15,+15]','[-20,+20]','[-25,+25]','[-30,+30]'],
+        widget=widgets.RadioSelectHorizontal,
+        label='''
+        Question 1: Which one of the following means the most precise?
+        '''
+    )
+    Test_question2 = models.StringField(
+        choices=['10%','1%','80%','0.1%','50%'],
+        widget=widgets.RadioSelectHorizontal,
+        label='''
+        Question 2: What is the probability that the true theta takes value of 57?
+        '''
+    )
 # FUNCTIONS
 # PAGES
+
+class Test_questions(Page):
+    form_model = 'player'
+    form_fields = ['Test_question1', 'Test_question2']
+
+    @staticmethod
+    def is_displayed(player):
+       return player.round_number == 1
+
+    @staticmethod
+    def error_message(player, values):
+        print('values is', values)
+        if values['Test_question1'] != "[-5,+5]":
+            return 'Your answer to question 1 is wrong. Please answer that question again.'
+        if values['Test_question2'] != "1%":
+            return 'Your answer to question 2 is wrong. Please answer that question again.'
+        
 class Task2(Page):
     @staticmethod
     def is_displayed(player):
@@ -626,5 +659,5 @@ class Payoff_page(Page):
                    'payoff': payoff_of_random_round,
                 }
               
-page_sequence = [Task2, Task3_color, Task3_priv_signal1, Task3_priv_signal2, Practice_done, Payoff_page]
+page_sequence = [Test_questions, Task2, Task3_color, Task3_priv_signal1, Task3_priv_signal2, Practice_done, Payoff_page]
 
