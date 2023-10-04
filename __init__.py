@@ -127,6 +127,12 @@ class Player(BasePlayer):
 # FUNCTIONS
 # PAGES
 
+class Instructions(Page):
+    @staticmethod
+    def is_displayed(player):
+       return player.round_number == 1
+
+        
 class Test_questions(Page):
     form_model = 'player'
     form_fields = ['Test_question1', 'Test_question2']
@@ -659,5 +665,5 @@ class Payoff_page(Page):
                    'payoff': payoff_of_random_round,
                 }
               
-page_sequence = [Test_questions, Task2, Task3_color, Task3_priv_signal1, Task3_priv_signal2, Practice_done, Payoff_page]
+page_sequence = [Instructions, Test_questions, Task2, Task3_color, Task3_priv_signal1, Task3_priv_signal2, Practice_done, Payoff_page]
 
