@@ -82,24 +82,24 @@ class Player(BasePlayer):
         ''')
     Guess_of_theta_signal1 = models.IntegerField( min=1,max=100,
         label='''
-        Guess of Theta.
+        Question 1: Please make a guess of the true value of the asset in this round.
         ''')
     Guess_of_sigma_signal1 = models.StringField(
-        choices=['[-5,+5]','[-10,+10]','[-15,+15]','[-20,+20]','[-25,+25]','[-30,+30]'],
+        choices=['[-5,+5]','[-6,+6]','[-7,+7]','[-8,+8]','[-9,+9]','[-10,+10]'],
         widget=widgets.RadioSelectHorizontal,
         label='''
-        Guess of Sigma.
+        Question 2: Please make a guess of the range that was picked for your private signal in this round.
         '''
     )
     Guess_of_theta_signal2 = models.IntegerField( min=1,max=100,
         label='''
-        Guess of Theta.
+        Question 1: Please make a guess of the true value of the asset in this round.
         ''')
     Guess_of_sigma_signal2 = models.StringField(
-        choices=['[-5,+5]','[-10,+10]','[-15,+15]','[-20,+20]','[-25,+25]','[-30,+30]'],
+        choices=['[-5,+5]','[-6,+6]','[-7,+7]','[-8,+8]','[-9,+9]','[-10,+10]'],
         widget=widgets.RadioSelectHorizontal,
         label='''
-        Guess of Sigma.
+        Question 2: Please make a guess of the range that was picked for your private signal in this round.
         '''
     )
     Payoff_task2 = models.IntegerField()
@@ -111,7 +111,7 @@ class Player(BasePlayer):
     
     # Below are test questions:
     Test_question1 = models.StringField(
-        choices=['[-5,+5]','[-10,+10]','[-15,+15]','[-20,+20]','[-25,+25]','[-30,+30]'],
+        choices=['[-5,+5]','[-6,+6]','[-7,+7]','[-8,+8]','[-9,+9]','[-10,+10]'],
         widget=widgets.RadioSelectHorizontal,
         label='''
         Question 1: Which one of the following means the most precise?
