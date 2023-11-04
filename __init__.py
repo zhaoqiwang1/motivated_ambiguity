@@ -127,12 +127,35 @@ class Player(BasePlayer):
 # FUNCTIONS
 # PAGES
 
-class Instructions(Page):
+class Task2_Instructions(Page):
     @staticmethod
     def is_displayed(player):
        return player.round_number == 1
-
+    
+    def vars_for_template(self):
         
+        # img_sig_url = '/static/Motivated_Beliefs/signal.PNG'
+        img_url1 = '/static/task2_example1.jpg'
+        img_url2 = '/static/task2_example2.jpg'
+
+        return {
+                'img_url1': img_url1,
+                'img_url2': img_url2,
+            }
+
+class Task2(Page):
+    @staticmethod
+    def is_displayed(player):
+       return player.round_number == 1
+    form_model = 'player'
+    form_fields = ['Ambiguity_attitude_elicit1','Ambiguity_attitude_elicit2','Ambiguity_attitude_elicit3',     'Ambiguity_attitude_elicit4','Ambiguity_attitude_elicit5','Ambiguity_attitude_elicit6','Ambiguity_attitude_elicit7','Ambiguity_attitude_elicit8','Ambiguity_attitude_elicit9','Ambiguity_attitude_elicit10']
+        
+class Task3_Instructions(Page):
+    @staticmethod
+    def is_displayed(player):
+       return player.round_number == 1
+    
+
 class Test_questions(Page):
     form_model = 'player'
     form_fields = ['Test_question1', 'Test_question2']
@@ -149,12 +172,7 @@ class Test_questions(Page):
         if values['Test_question2'] != "1%":
             return 'Your answer to question 2 is wrong. Please answer that question again.'
         
-class Task2(Page):
-    @staticmethod
-    def is_displayed(player):
-       return player.round_number == 1
-    form_model = 'player'
-    form_fields = ['Ambiguity_attitude_elicit1','Ambiguity_attitude_elicit2','Ambiguity_attitude_elicit3',     'Ambiguity_attitude_elicit4','Ambiguity_attitude_elicit5','Ambiguity_attitude_elicit6','Ambiguity_attitude_elicit7','Ambiguity_attitude_elicit8','Ambiguity_attitude_elicit9','Ambiguity_attitude_elicit10']
+
 
 
 class Task3_color(Page):
@@ -665,5 +683,5 @@ class Payoff_page(Page):
                    'payoff': payoff_of_random_round,
                 }
               
-page_sequence = [Instructions, Test_questions, Task2, Task3_color, Task3_priv_signal1, Task3_priv_signal2, Practice_done, Payoff_page]
+page_sequence = [Task2_Instructions, Task2, Task3_Instructions, Test_questions,  Task3_color, Task3_priv_signal1, Task3_priv_signal2, Practice_done, Payoff_page]
 
