@@ -4,13 +4,13 @@
         Please answer the following questions. IQ ranking is: {{ranking}}. The current round number is: {{round_number}}.
     </p>
     <p>
-
-    {% if color == 'green' %}
-    <b>Your color in this period is <b style="color:#34e610">{{color}}</b>
-   {% else %}
-    <b>Your color in this period is <b style="color:#ff0000">{{color}}</b>
-   {% endif %}
-    </p>
+        {% if color == 'green' %}
+        <b>Your color in this period is <b style="color:#34e610">{{color}}</b>
+       {% else %}
+        <b>Your color in this period is <b style="color:#ff0000">{{color}}</b>
+       {% endif %}
+        </p> 
+    
     please make a guess of the true value theta.
     {{ formfields }}
 
