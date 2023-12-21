@@ -1,4 +1,22 @@
-{{ block title }}Task 3, Given Private Signal 2 {{ endblock }}
+{{ block title }}Task 3. Type 2 Information (Second Signal) {{ endblock }}
+{{ block style }}
+<style>
+    .distribution_viz {
+      position: relative;
+      overflow: auto;
+      height: 550px;
+      width: 1000px;
+      border: 3px solid #666;
+    }
+    .information {
+      position: relative;
+      overflow: auto;
+      height: 230px;
+      width: 1000px;
+      border: 3px solid #666;
+    }
+  </style>
+{{ endblock }}
 {{ block content }}
 <p>
     2nd Signal Page.
@@ -12,155 +30,172 @@
 <p>   
     Your IQ ranking is: {{ranking}}. 
 </p>
-<p>
-
-{% if color == 'green' %}
-<b>Your color in this period is <b style="color:#34e610">{{color}}</b>.
-{% else %}
-<b>Your color in this period is <b style="color:#ff0000">{{color}}</b>.
-{% endif %}
-</p>
-<p>
-    This round you receive two signals.
-</p>
-<p>
-    {% if ranking == 1 %}
-    <b>Your First Private Noisy Signal is {{r1_sigma_signal1}}.</b>
-    {% elif ranking == 2 %}
-    <b>Your First Private Noisy Signal is {{r2_sigma_signal1}}.</b>
-    {% elif ranking == 3 %}
-    <b>Your First Private Noisy Signal is {{r3_sigma_signal1}}.</b>
-    {% elif ranking == 4 %}
-    <b>Your First Private Noisy Signal is {{r4_sigma_signal1}}.</b>
-    {% elif ranking == 5 %}
-    <b>Your First Private Noisy Signal is {{r5_sigma_signal1}}.</b>
-    {% elif ranking == 6 %}
-    <b>Your First Private Noisy Signal is {{r6_sigma_signal1}}.</b>
-    {% elif ranking == 7 %}
-    <b>Your First Private Noisy Signal is {{r7_sigma_signal1}}.</b>
-    {% else %}
-    <b>Your First Private Noisy Signal is {{r8_sigma_signal1}}.</b>
-    {% endif %}
-</p>
-
-<p>
-    {% if ranking == 1 %}
-    <b>Your Second Private Noisy Signal is {{r1_sigma_signal2}}.</b>
-    {% elif ranking == 2 %}
-    <b>Your Second Private Noisy Signal is {{r2_sigma_signal2}}.</b>
-    {% elif ranking == 3 %}
-    <b>Your Second Private Noisy Signal is {{r3_sigma_signal2}}.</b>
-    {% elif ranking == 4 %}
-    <b>Your Second Private Noisy Signal is {{r4_sigma_signal2}}.</b>
-    {% elif ranking == 5 %}
-    <b>Your Second Private Noisy Signal is {{r5_sigma_signal2}}.</b>
-    {% elif ranking == 6 %}
-    <b>Your Second Private Noisy Signal is {{r6_sigma_signal2}}.</b>
-    {% elif ranking == 7 %}
-    <b>Your Second Private Noisy Signal is {{r7_sigma_signal2}}.</b>
-    {% else %}
-    <b>Your Second Private Noisy Signal is {{r8_sigma_signal2}}.</b>
-    {% endif %}
-</p>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Normal Distribution with Slider (Chart.js)</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-<p>
-The graph below shows <b style="color:steelblue;">The Distribution of &theta;</b> and 
-<b style="color:orange;">The Distribution of &sigma;</b>.
-</p>
-<label for="varianceSlider"><p style="color:orange;">Adjust the Accuracy:</p></label>
-<input type="range" min="1" max="4" value="4" id="varianceSlider" step="0.1">
-<span id="varianceValue">4</span>
-
-<canvas id="normalDistributionChart" width="600" height="300"></canvas>
-
-<script>
-    var ctx = document.getElementById('normalDistributionChart').getContext('2d');
-    var slider = document.getElementById('varianceSlider');
-    var varianceValue = document.getElementById('varianceValue');
- 
-    var data_std_normal = [];
-        for (var x = -10; x <= 10; x += 0.1) {
-            var y = (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-0.5 * x * x);
-            data_std_normal.push({ x: x, y: y });
-        }
-
-    var chartConfig = {
-        type: 'line',
-        data: {
-            labels: [],
-            datasets: [{
-                //label: '',
-                borderColor: 'orange',
-                data: [],
-                pointRadius: 0,
-                fill: false
-            },
-            {
-                //label: 'Distribution of'+ '&Theta',
-                borderColor: 'rgba(70, 130, 180, 0.2)',
-                backgroundColor: 'rgba(70, 130, 180, 0.6)', // SteelBlue with some transparency
-                data: data_std_normal,
-                pointRadius: 0,
-                fill: true,
-                showLine: true, // Connect scatter points with a line
-            }]
-        },
-        options: {
-            plugins: {
-                    legend: false, // Hide legend
-                    },
-            scales: {
-                x: {
-                    type: 'linear',
-                    position: 'bottom',
-                    min: -10,
-                    max: 10,
-                    ticks: {
-                        stepSize: 1
-                    }
+<div class="distribution_viz">
+    <center>
+        <font size="5"> 
+          <header> <b> Visualizing Basic Information </b></header>
+        </font> 
+    </center>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Normal Distribution with Slider (Chart.js)</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
+        <p>
+            The graph below shows <b style="color:steelblue;">The Distribution of &theta;</b> and 
+            <b style="color:orange;">The Distribution of &sigma;</b>. You can change the accuracy of &sigma; 
+            by adjusting the slider below. This will help you visualize the accurate of each &sigma; value (from 1 to 4).
+        </p>
+    <label for="varianceSlider"><p style="color:orange;">Adjust the Accuracy:</p></label>
+    <input type="range" min="1" max="4" value="4" id="varianceSlider" step="0.1">
+    <span id="varianceValue">4</span>
+    
+    <canvas id="normalDistributionChart" width="450" height="180"></canvas>
+    
+    <script>
+        var ctx = document.getElementById('normalDistributionChart').getContext('2d');
+        var slider = document.getElementById('varianceSlider');
+        var varianceValue = document.getElementById('varianceValue');
+     
+        var data_std_normal = [];
+            for (var x = -10; x <= 10; x += 0.1) {
+                var y = (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-0.5 * x * x);
+                data_std_normal.push({ x: x, y: y });
+            }
+    
+        var chartConfig = {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    //label: '',
+                    borderColor: 'orange',
+                    data: [],
+                    pointRadius: 0,
+                    fill: false
                 },
-                y: {
-                    min: 0,
-                    max: 0.4,
-                    display: false
+                {
+                    //label: 'Distribution of'+ '&Theta',
+                    borderColor: 'rgba(70, 130, 180, 0.2)',
+                    backgroundColor: 'rgba(70, 130, 180, 0.6)', // SteelBlue with some transparency
+                    data: data_std_normal,
+                    pointRadius: 0,
+                    fill: true,
+                    showLine: true, // Connect scatter points with a line
+                }]
+            },
+            options: {
+                plugins: {
+                        legend: false, // Hide legend
+                        },
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        min: -10,
+                        max: 10,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    },
+                    y: {
+                        min: 0,
+                        max: 0.4,
+                        display: false
+                    }
                 }
             }
+        };
+    
+        var myChart = new Chart(ctx, chartConfig);
+    
+        function updateChart(variance) {
+            var data = [];
+            for (var x = -10; x <= 10; x += 0.1) {
+                data.push({
+                    x: x,
+                    y: 0.4 * Math.exp(-(Math.pow(x, 2) / (2 * Math.pow(variance, 2))))
+                   // y: Math.exp(-(Math.pow(x, 2) / (2 * Math.pow(variance, 2))))
+                });
+            }
+    
+            myChart.data.datasets[0].data = data;
+            myChart.update();
         }
-    };
-
-    var myChart = new Chart(ctx, chartConfig);
-
-    function updateChart(variance) {
-        var data = [];
-        for (var x = -10; x <= 10; x += 0.1) {
-            data.push({
-                x: x,
-                y: 0.4 * Math.exp(-(Math.pow(x, 2) / (2 * Math.pow(variance, 2))))
-               // y: Math.exp(-(Math.pow(x, 2) / (2 * Math.pow(variance, 2))))
-            });
-        }
-
-        myChart.data.datasets[0].data = data;
-        myChart.update();
-    }
-
-    slider.addEventListener('input', function () {
-        var variance = this.value;
-        varianceValue.textContent = variance;
-        updateChart(variance);
-    });
-
-    // Initial update
-    updateChart(slider.value);
-</script>
-
-</body>
+    
+        slider.addEventListener('input', function () {
+            var variance = this.value;
+            varianceValue.textContent = variance;
+            updateChart(variance);
+        });
+    
+        // Initial update
+        updateChart(slider.value);
+    </script>
+    </body>
+</div>
+<br>
+<div class="information">
+    <center>
+        <font size="5"> 
+          <header> <b> Information You Receive </b></header>
+        </font> 
+    </center>
+    <p>
+        {% if color == 'green' %}
+        <b>Your color in this period is <b style="color:#34e610">{{color}}</b>.
+        {% else %}
+        <b>Your color in this period is <b style="color:#ff0000">{{color}}</b>.
+        {% endif %}
+        </p>
+        <p>
+            This round you receive two signals.
+        </p>
+        <p>
+            {% if ranking == 1 %}
+            <b>Your First Private Noisy Signal is {{r1_sigma_signal1}}.</b>
+            {% elif ranking == 2 %}
+            <b>Your First Private Noisy Signal is {{r2_sigma_signal1}}.</b>
+            {% elif ranking == 3 %}
+            <b>Your First Private Noisy Signal is {{r3_sigma_signal1}}.</b>
+            {% elif ranking == 4 %}
+            <b>Your First Private Noisy Signal is {{r4_sigma_signal1}}.</b>
+            {% elif ranking == 5 %}
+            <b>Your First Private Noisy Signal is {{r5_sigma_signal1}}.</b>
+            {% elif ranking == 6 %}
+            <b>Your First Private Noisy Signal is {{r6_sigma_signal1}}.</b>
+            {% elif ranking == 7 %}
+            <b>Your First Private Noisy Signal is {{r7_sigma_signal1}}.</b>
+            {% else %}
+            <b>Your First Private Noisy Signal is {{r8_sigma_signal1}}.</b>
+            {% endif %}
+        </p>
+        
+        <p>
+            {% if ranking == 1 %}
+            <b>Your Second Private Noisy Signal is {{r1_sigma_signal2}}.</b>
+            {% elif ranking == 2 %}
+            <b>Your Second Private Noisy Signal is {{r2_sigma_signal2}}.</b>
+            {% elif ranking == 3 %}
+            <b>Your Second Private Noisy Signal is {{r3_sigma_signal2}}.</b>
+            {% elif ranking == 4 %}
+            <b>Your Second Private Noisy Signal is {{r4_sigma_signal2}}.</b>
+            {% elif ranking == 5 %}
+            <b>Your Second Private Noisy Signal is {{r5_sigma_signal2}}.</b>
+            {% elif ranking == 6 %}
+            <b>Your Second Private Noisy Signal is {{r6_sigma_signal2}}.</b>
+            {% elif ranking == 7 %}
+            <b>Your Second Private Noisy Signal is {{r7_sigma_signal2}}.</b>
+            {% else %}
+            <b>Your Second Private Noisy Signal is {{r8_sigma_signal2}}.</b>
+            {% endif %}
+        </p>
+</div>
+<br>
+Given the information you have received, please update your beliefs and answer the following two questions truthfully.
+<br>
     {{ formfields }}
 
     {{ next_button }}

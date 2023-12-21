@@ -1,8 +1,139 @@
-{{ block title }}Task 3, Given Color{{ endblock }}
+{{ block title }}Task 3. Type 1 Information{{ endblock }}
+{{ block style }}
+<style>
+    .distribution_viz {
+      position: relative;
+      overflow: auto;
+      height: 500px;
+      width: 1000px;
+      border: 3px solid #666;
+    }
+    .information {
+      position: relative;
+      overflow: auto;
+      height: 150px;
+      width: 1000px;
+      border: 3px solid #666;
+    }
+  </style>
+{{ endblock }}
 {{ block content }}
+<p>
+    Please answer the following questions. IQ ranking is: {{ranking}}. The current round number is: {{round_number}}.
+</p>
+<div class="distribution_viz">
+    <center>
+        <font size="5"> 
+          <header> <b> Visualizing Basic Information </b></header>
+        </font> 
+    </center>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Normal Distribution with Slider (Chart.js)</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
     <p>
-        Please answer the following questions. IQ ranking is: {{ranking}}. The current round number is: {{round_number}}.
+    The graph below shows <b style="color:steelblue;">The Distribution of &theta;</b> 
     </p>
+    <!-- <label for="varianceSlider"><p style="color:orange;">Adjust the Accuracy:</p></label>
+    <input type="range" min="1" max="4" value="4" id="varianceSlider" step="0.1">
+    <span id="varianceValue">4</span> -->
+    
+    <canvas id="normalDistributionChart" width="450" height="180"></canvas>
+    
+    <script>
+        var ctx = document.getElementById('normalDistributionChart').getContext('2d');
+        var slider = document.getElementById('varianceSlider');
+        var varianceValue = document.getElementById('varianceValue');
+     
+        var data_std_normal = [];
+            for (var x = -10; x <= 10; x += 0.1) {
+                var y = (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-0.5 * x * x);
+                data_std_normal.push({ x: x, y: y });
+            }
+    
+        var chartConfig = {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    //label: '',
+                    borderColor: 'orange',
+                    data: [],
+                    pointRadius: 0,
+                    fill: false,
+                    showLine: false,
+                },
+                {
+                    //label: 'Distribution of'+ '&Theta',
+                    borderColor: 'rgba(70, 130, 180, 0.2)',
+                    backgroundColor: 'rgba(70, 130, 180, 0.6)', // SteelBlue with some transparency
+                    data: data_std_normal,
+                    pointRadius: 0,
+                    fill: true,
+                    showLine: true, // Connect scatter points with a line
+                }]
+            },
+            options: {
+                plugins: {
+                        legend: false, // Hide legend
+                        },
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        min: -10,
+                        max: 10,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    },
+                    y: {
+                        min: 0,
+                        max: 0.4,
+                        display: false
+                    }
+                }
+            }
+        };
+    
+        var myChart = new Chart(ctx, chartConfig);
+    
+        function updateChart(variance) {
+            var data = [];
+            for (var x = -10; x <= 10; x += 0.1) {
+                data.push({
+                    x: x,
+                    y: 0.4 * Math.exp(-(Math.pow(x, 2) / (2 * Math.pow(variance, 2))))
+                   // y: Math.exp(-(Math.pow(x, 2) / (2 * Math.pow(variance, 2))))
+                });
+            }
+    
+            myChart.data.datasets[0].data = data;
+            myChart.update();
+        }
+    
+        // slider.addEventListener('input', function () {
+        //     var variance = this.value;
+        //     varianceValue.textContent = variance;
+        //     updateChart(variance);
+        // });
+    
+        // // Initial update
+        // updateChart(slider.value);
+    </script>
+    </body>
+
+</div>
+<br>
+<div class="information">
+    <center>
+        <font size="5"> 
+          <header> <b> Information You Receive </b></header>
+        </font> 
+    </center>
     <p>
         {% if color == 'green' %}
         <b>Your color in this period is <b style="color:#34e610">{{color}}</b>
@@ -10,8 +141,10 @@
         <b>Your color in this period is <b style="color:#ff0000">{{color}}</b>
        {% endif %}
         </p> 
-    
-    please make a guess of the true value theta.
+</div>
+<br>
+Given the above information, please answer the following question truthfully.
+<br>
     {{ formfields }}
 
     {{ next_button }}

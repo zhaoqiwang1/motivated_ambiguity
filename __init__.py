@@ -98,6 +98,7 @@ class Player(BasePlayer):
     )
     Guess_of_theta_color = models.StringField(
         label='''
+        Question 1: Please make a guess of the true value of the asset in this round.
         ''')
     Guess_of_theta_signal1 = models.StringField(
         label='''
