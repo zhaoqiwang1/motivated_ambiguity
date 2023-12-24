@@ -106,7 +106,7 @@ class Player(BasePlayer):
         ''')
     Guess_of_sigma_signal1 = models.StringField(
         label='''
-        Question 2: Please make a guess of the accuracy of your private signal in this round. （A value between 1 and 4)
+        Question 2: Please make a guess of the accuracy of your private signal in this round. （A value between 0.25 and 4)
         '''
     )
     Guess_of_theta_signal2 = models.StringField(
@@ -115,7 +115,7 @@ class Player(BasePlayer):
         ''')
     Guess_of_sigma_signal2 = models.StringField(
         label='''
-        Question 2: Please make a guess of the accuracy of your private signal in this round. （A value between 1 and 4)
+        Question 2: Please make a guess of the accuracy of your private signal in this round. （A value between 0.25 and 4)
         '''
     )
     Payoff_task2 = models.IntegerField()
@@ -199,12 +199,71 @@ class Task2(Page):
     form_model = 'player'
     form_fields = ['Ambiguity_attitude_elicit1','Ambiguity_attitude_elicit2','Ambiguity_attitude_elicit3',     'Ambiguity_attitude_elicit4','Ambiguity_attitude_elicit5','Ambiguity_attitude_elicit6','Ambiguity_attitude_elicit7','Ambiguity_attitude_elicit8','Ambiguity_attitude_elicit9','Ambiguity_attitude_elicit10']
         
-class Task3_Instructions(Page):
+class Task3_Instructions_maintask(Page):
     @staticmethod
     def is_displayed(player):
        return player.round_number == 1
     
+    def vars_for_template(self):
+        std_normal_distribution = '/static/std_normal_distribution.png'
 
+        return {
+                'std_normal_distribution': std_normal_distribution,
+            }
+    
+class Task3_Instructions_type1info(Page):
+    @staticmethod
+    def is_displayed(player):
+       return player.round_number == 1
+
+    def vars_for_template(self):
+        grouping_img = '/static/grouping.png'
+        return {
+                'grouping_img': grouping_img,
+            }
+    
+class Task3_Instructions_type2info(Page):
+    @staticmethod
+    def is_displayed(player):
+       return player.round_number == 1
+
+class Task3_Instructions_survey1(Page):
+    @staticmethod
+    def is_displayed(player):
+       return player.round_number == 1
+    def vars_for_template(self):
+        survey1_img = '/static/survey1_img.png'
+        return {
+                'survey1_img': survey1_img,
+            }
+
+
+
+class Task3_Instructions_survey2(Page):
+    @staticmethod
+    def is_displayed(player):
+       return player.round_number == 1  
+    def vars_for_template(self):
+        survey2_img = '/static/survey2_img.png'
+        return {
+                'survey2_img': survey2_img,
+            }
+    
+class Task3_Instructions_survey2_2(Page):
+    @staticmethod
+    def is_displayed(player):
+       return player.round_number == 1   
+    def vars_for_template(self):
+        survey2_img = '/static/survey2_img.png'
+        return {
+                'survey2_img': survey2_img,
+            }
+    
+class Task3_Instructions_pay_time(Page):
+    @staticmethod
+    def is_displayed(player):
+       return player.round_number == 1   
+    
 class Test_questions(Page):
     form_model = 'player'
     form_fields = ['Test_question1', 'Test_question2']
@@ -506,5 +565,8 @@ class Payoff_page(Page):
                    'payoff': payoff_of_random_round,
                 }
               
-page_sequence = [Task2_Instructions, Task2, Task3_Instructions, Test_questions, WaitPage1,  Task3_color, Task3_priv_signal1, Task3_priv_signal2, Practice_done, Payoff_page]
+page_sequence = [Task2_Instructions, Task2, 
+                 Task3_Instructions_maintask, Task3_Instructions_type1info, Task3_Instructions_type2info, 
+                 Task3_Instructions_survey1, Task3_Instructions_survey2, Task3_Instructions_survey2_2, Task3_Instructions_pay_time,
+                 Test_questions, WaitPage1,  Task3_color, Task3_priv_signal1, Task3_priv_signal2, Practice_done, Payoff_page]
 

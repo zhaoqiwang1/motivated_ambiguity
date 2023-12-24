@@ -4,7 +4,7 @@
     .distribution_viz {
       position: relative;
       overflow: auto;
-      height: 550px;
+      height: 600px;
       width: 1000px;
       border: 3px solid #666;
     }
@@ -46,12 +46,20 @@
         <p>
             The graph below shows <b style="color:steelblue;">The Distribution of &theta;</b> and 
             <b style="color:orange;">The Distribution of &sigma;</b>. You can change the accuracy of &sigma; 
-            by adjusting the slider below. This will help you visualize the accurate of each &sigma; value (from 1 to 4).
+            by adjusting the slider below. This will help you visualize the accurate of each &sigma; value (from 0.25 to 4).
         </p>
     <label for="varianceSlider"><p style="color:orange;">Adjust the Accuracy:</p></label>
-    <input type="range" min="1" max="4" value="4" id="varianceSlider" step="0.1">
+    <input type="range" min="0.25" max="4" value="4" id="varianceSlider" step="0.05">
     <span id="varianceValue">4</span>
-    
+    <br>
+    <font size="4"> 
+        <p style="margin-left: 100px; display: inline;">
+            <b>  If &theta; < 0: H &rarr; <b style="color:red;">Red</b> & L &rarr; <b style="color:#32CD32;">Green</b> </b>
+        </p>            
+        <p style="margin-left: 300px; display: inline;">
+            <b>  If &theta; > 0: H &rarr; <b style="color:#32CD32;">Green</b> & L &rarr; <b style="color:red;">Red</b> </b>
+        </p>
+    </font> 
     <canvas id="normalDistributionChart" width="450" height="180"></canvas>
     
     <script>
@@ -102,7 +110,7 @@
                     },
                     y: {
                         min: 0,
-                        max: 0.4,
+                        max: 0.45,
                         display: false
                     }
                 }
@@ -145,7 +153,7 @@
     </center>
     <p>
         {% if color == 'green' %}
-        <b>Your color in this period is <b style="color:#34e610">{{color}}</b>.
+        <b>Your color in this period is <b style="color:#32CD32">{{color}}</b>.
         {% else %}
         <b>Your color in this period is <b style="color:#ff0000">{{color}}</b>.
         {% endif %}
