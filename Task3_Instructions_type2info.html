@@ -1,0 +1,26 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+    Task 3. Instructions
+{% endblock %}
+
+{% block styles %}
+
+{% endblock %} 
+
+{% block content %}
+<center>
+    <font size="5"> 
+      <header> <b> Part 2: Two Types of Information to Help You Guess the true value of Ө </b></header>
+    </font> 
+</center>
+<p>
+    <b>Type 2: Noisy Private Signal Information</b><br>
+    The private signal tells you information about the realization of θ in this particular round. In each round, the private signal s equals θ plus a noise term e, which follows a similar distribution but with different variances in different rounds. Therefore, the noise term e takes different realizations in each round.<br>
+    Specifically, s = θ + e, where e ~ 𝑁(0, σ^2).<br>
+    In the above equation, θ is the realized unknown true value of θ you are trying to forecast. The private signal is the true value of θ plus a normally distributed error term having a mean of zero and an unknown variance of σ^2. The realization of the error term e is a random draw from the same distribution for all participants. The private signal s contains information about the true value of θ.<br>
+    We do not know the exact value of the variance 𝜎𝑠2. We only know that the variance 𝜎𝑠2 ⁡is between 0.25 and 4. That is, the lowest possible value of the variance is 0.25, and the highest possible value of the variance is 4. The realization of the variance of the private signal is randomly drawn at the beginning of each period.
+</p>
+{{ next_button }}
+{% endblock %}

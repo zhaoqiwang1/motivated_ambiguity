@@ -1,0 +1,38 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+    Task 3. Instructions
+{% endblock %}
+
+{% block styles %}
+
+{% endblock %} 
+
+{% block content %}
+<center>
+    <font size="5"> 
+      <header> <b> Part 1: Main Task of the Game: Guess the true value of an asset </b></header>
+    </font> 
+</center>
+<p>
+    In this experiment, you are going to predict the realized value, denoted as θ, of a hypothetical asset. Its value follows a randomly distributed variable following the normal distribution: θ ∼ 𝑁(0,1). If you are not familiar with the normal distribution, here is some basic information about it. 
+</p>
+<p>
+    <figure>
+        <img src="{{std_normal_distribution}}" style="width:900px;height:440px;"/>
+        <center><figcaption><b>Figure 1</b></figcaption></center>
+    </figure>
+</p>
+<p>
+    The shape of the normal distribution is a bell curve. The mean of θ is 0, and its variance is 1. This means that (as shown in the above Figure 1) <br>
+    (1) the probably that the realization of θ lies between [-1, 1] is 68%; <br>
+    (2) the probably that the realization of θ lies between [-2, 2] is 95%; and <br>
+    (3) the probably that the realization of θ lies between [-3, 3] is 99.7%.<br>
+    <b>
+        It is equally likely that the true value of θ is either greater or smaller than the mean zero. Also, the probability that the realization of θ is close to the mean 0 is larger than the probability that it is far away from the mean.
+    </b>
+    The realization of the true value, θ, is drawn at the beginning of each round, but you don’t see the realized value immediately. Instead, you predict the value of θ in each round based on two types of information (explained in Part 2) that help you guess the true value.
+</p>
+{{ next_button }}
+{% endblock %}
