@@ -6,33 +6,379 @@
 {% endblock %}
 
 {% block styles %}
-
+<style>
+    .distribution_viz {
+      position: relative;
+      overflow: auto;
+      height: 510px;
+      width: 1000px;
+      border: 3px solid #666;
+    }
+    .information {
+      position: relative;
+      overflow: auto;
+      height: 480px;
+      width: 1000px;
+      border: 3px solid #666;
+    }
+  </style>
 {% endblock %} 
 
 {% block content %}
+<head>
+    <script type="text/javascript" async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <!-- <link rel="stylesheet" href="https://latex.now.sh/style.css"> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Normal Distribution with Slider (Chart.js)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<center>
+    <font size="5"> 
+      <header> <b> Basic Knowledge for This Game </b></header>
+    </font> 
+</center>
+<p>
+    In this experiment, there is a hypothetical asset. Its value, denoted as \(\theta\), follows a normal distribution with a mean of \(m\) and a variance of \(var\). If you are not familiar with these terms, here is some basic information about normal distribution. 
+</p>
+<p>
+    <center>
+    <figure>
+        <img src="{{std_normal_distribution}}" style="width:900px;height:440px;"/>
+        <center><figcaption><b>Figure 1</b></figcaption></center>
+    </figure>
+    </center>
+</p>
+<p>
+    <ul>
+        <li>The shape of the normal distribution is a bell curve, similar to the blue area of Figure 1.</li>
+        <li>The mean of the distribution, \(m\), indicates that all possible values of the asset, \(\theta\), are symmetrically centered around \(m\).</li>
+        <li>Its variance, which is \(var\), refers to how spread out the distribution is around its mean \(m\).</li>
+        <li>In our game, we choose 0 to be our mean, and 1 to be our variance, shown as Figure 1 above.</li>
+        <li>The area below the entire curve and above x-axis (shaded in blue in Figure 1) represents the probability that \(\theta\) takes some possible values.</li>
+    </ul>  
+</p>
+<p>
+     Some examples follow: <br>
+    (1) the probably that the realization of θ lies between [-1, 0] is: about \(34.1\%\); <br>
+    (2) the probably that the realization of θ lies between [-1, 1] is: about \(34.1\%+34.1\% \approx 68\%\); and <br>
+    (3) the probably that the realization of θ lies between [-2, 2] is: \(34.1\%+34.1\%+13.6\%+13.6\% \approx 95\%\); and <br>
+    (4) the probably that the realization of θ lies between [-1, 2] is: \(34.1\%+34.1\%+13.6\% \approx 82\%\).<br>
+    (5) the probably that the realization of θ is smaller than 2 is: \(1 - 2.1\% - 0.1\% \approx 97.8\%\).<br>
+    (6) the probably that the realization of θ is greater than 2 is: \(1-97.8\%\approx 2.2\%\).<br>
+    (8) so on...<br>
+    <b>
+        Because \(\theta\) is symmetrically centered around 0. It is equally likely, meaning \(50\%\), that the true value of \(\theta\) is greater or smaller than 0. Also, the probability that the realization of \(\theta\) is close to 0 is larger than the probability that it is far away from 0.
+    </b>
+</p>
+<p>
+    To better understand what does variance, \(var\), mean, please see the following two examples. Since the variance measures how spread out the distribution is, a small variance means the whole distribution is more concentrated to the mean. Figure 2 gives an example of a small variance, 0.2, with the same mean 0. From the graph, we can see that, under a smaller variance, it is more likely that the \(\theta\) takes a value close to 0.
+</p>
+<div class="distribution_viz">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Custom Normal Distribution Chart</title>
+        <!-- Include Chart.js from CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      </head>
+      <body>
+        <canvas id="customNormalDistributionChart" width="400" height="200"></canvas>
+      
+        <script>
+          // Function to calculate custom normal distribution values
+          function customNormalDistribution(x, mean, variance) {
+            const stdDeviation = Math.sqrt(variance);
+            return Math.exp(-0.5 * Math.pow((x - mean) / stdDeviation, 2)) / (stdDeviation * Math.sqrt(2 * Math.PI));
+          }
+      
+          // Generate data for the custom normal distribution curve
+          const mean = 0;
+          const variance = 0.2;
+          const data = {
+            labels: Array.from({ length: 100 }, (_, i) => i / 10 - 5), // x-axis values (-5 to 5)
+            datasets: [{
+              label: 'Custom Normal Distribution',
+              data: Array.from({ length: 100 }, (_, i) => customNormalDistribution(i / 10 - 5, mean, variance)),
+              borderColor: 'rgba(70, 130, 180, 0.2)',
+              backgroundColor: 'rgba(70, 130, 180, 0.6)',
+              borderWidth: 2,
+              pointRadius: 0,
+              fill: true
+            }]
+          };
+      
+          // Chart configuration
+          const config = {
+            type: 'line',
+            data: data,
+            options: {
+              plugins: {
+                        legend: false, // Hide legend
+                        },
+              scales: {
+                x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        min: -10,
+                        max: 10,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    },
+                y: {
+                    min: 0,
+                    max: 0.9,
+                    display: false
+                }
+              }
+            }
+          };
+      
+          // Create the chart
+          const ctx = document.getElementById('customNormalDistributionChart').getContext('2d');
+          new Chart(ctx, config);
+        </script>
+      </body>
+</div>
+<center>
+    <font size="3"> 
+      <header> <b> Figure 2 </b></header>
+    </font> 
+</center>
+<br>
+<p>
+    Therefore, a large variance means the distribution is more widely spread out around mean 0. Below, Figure 3 gives an example of a large variance, 3, with the same mean 0. From the graph, we can see that, under a large variance, it is relatively more likely the \(\theta\) takes a value far from 0.
+</p>
+<div class="distribution_viz">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Custom Normal Distribution Chart</title>
+        <!-- Include Chart.js from CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      </head>
+      <body>
+        <canvas id="customNormalDistributionChart2" width="400" height="200"></canvas>
+      
+        <script>
+          // Function to calculate custom normal distribution values
+          function customNormalDistribution(x, mean, variance) {
+            const stdDeviation = Math.sqrt(variance);
+            return Math.exp(-0.5 * Math.pow((x - mean) / stdDeviation, 2)) / (stdDeviation * Math.sqrt(2 * Math.PI));
+          }
+      
+          // Generate data for the custom normal distribution curve
+        //   var verticalline1 = [{x: 1, y: 0}, {x: 1, y: 0.5}];
+        //   var verticalline2 = [{x: 0, y: 0}, {x: 0, y: 0.5}];
+        //   var verticalline3 = [{x: -1, y: 0}, {x: -1, y: 0.5}];
+        //   var verticalline4 = [{x: -2, y: 0}, {x: -2, y: 0.5}];
+        //   var verticalline5 = [{x: 2, y: 0}, {x: 2, y: 0.5}];
+
+          const mean2 = 0;
+          const variance2 = 3;
+          const data2 = {
+            labels: Array.from({ length: 100 }, (_, i) => i / 10 - 5), // x-axis values (-5 to 5)
+            datasets: [{
+              label: 'Custom Normal Distribution',
+              data: Array.from({ length: 100 }, (_, i) => customNormalDistribution(i / 10 - 5, mean2, variance2)),
+              borderColor: 'rgba(70, 130, 180, 0.2)',
+              backgroundColor: 'rgba(70, 130, 180, 0.6)',
+              borderWidth: 2,
+              pointRadius: 0,
+              fill: true
+            },
+            // {
+            //         borderColor: 'black',
+            //         borderWidth: 2,
+            //         data: verticalline1,
+            //         borderDash: [5],
+            //         pointRadius: 0,
+            //         showLine: true,
+            //         fill: false,
+            //     },{
+            //         borderColor: 'black',
+            //         borderWidth: 2,
+            //         data: verticalline2,
+            //         borderDash: [5],
+            //         pointRadius: 0,
+            //         showLine: true,
+            //         fill: false,
+            //     },{
+            //         borderColor: 'black',
+            //         borderWidth: 2,
+            //         data: verticalline3,
+            //         borderDash: [5],
+            //         pointRadius: 0,
+            //         showLine: true,
+            //         fill: false,
+            //     },{
+            //         borderColor: 'black',
+            //         borderWidth: 2,
+            //         data: verticalline4,
+            //         borderDash: [5],
+            //         pointRadius: 0,
+            //         showLine: true,
+            //         fill: false,
+            //     },{
+            //         borderColor: 'black',
+            //         borderWidth: 2,
+            //         data: verticalline5,
+            //         borderDash: [5],
+            //         pointRadius: 0,
+            //         showLine: true,
+            //         fill: false,
+            //     },
+            ]
+          };
+      
+          // Chart configuration
+          const config2 = {
+            type: 'line',
+            data: data2,
+            options: {
+              plugins: {
+                        legend: false, // Hide legend
+                        },
+              scales: {
+                x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        min: -10,
+                        max: 10,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    },
+                y: {
+                    min: 0,
+                    max: 0.3,
+                    display: false
+                }
+              }
+            }
+          };
+      
+          // Create the chart
+          const ctx2 = document.getElementById('customNormalDistributionChart2').getContext('2d');
+          new Chart(ctx2, config2);
+        </script>
+      </body>
+</div>
+<center>
+    <font size="3"> 
+      <header> <b> Figure 3 </b></header>
+    </font> 
+</center>
+<p>
+Figure 4 below is a dynamic graph that you can play around. There is a slider on the top left corner of the figure. Please adjust the variance of the distribution by moving the <b>slider</b>. The minimum (maximum) value of the variance is 0.25 (4) in the Figure below. This helps you get a sense about how variance changes the shape of the distribution. 
+</p>
+<div class="information">
+    <font size="3">
+<label for="varianceSlider"><p style="color:steelblue;"><b>Adjust the Variance:</b></p></label>
+</font>
+    <input type="range" min="0.25" max="4" value="4" id="varianceSlider" step="0.01">
+    <span id="varianceValue">4</span> 
+    <canvas id="normalDistributionChart" width="450" height="180"></canvas>
+    
+    <script>
+        var ctx3 = document.getElementById('normalDistributionChart').getContext('2d');
+        var slider = document.getElementById('varianceSlider');
+        var varianceValue = document.getElementById('varianceValue');
+     
+        var data_std_normal = [];
+            for (var x = -10; x <= 10; x += 0.1) {
+                var y = (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-0.5 * x * x);
+                data_std_normal.push({ x: x, y: y });
+            }
+    
+        var chartConfig = {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    //label: '',
+                    borderColor: 'rgba(70, 130, 180, 0.6)',
+                    backgroundColor: 'rgba(70, 130, 180, 0.6)',
+                    data: [],
+                    pointRadius: 0,
+                    fill: true
+                },
+                {
+                    //label: 'Distribution of'+ '&Theta',
+                    borderColor: 'rgba(70, 130, 180, 0.2)',
+                    backgroundColor: 'rgba(70, 130, 180, 0.6)', // SteelBlue with some transparency
+                    data: data_std_normal,
+                    pointRadius: 0,
+                    fill: true,
+                    showLine: true,
+                    hidden:true, // Connect scatter points with a line
+                }]
+            },
+            options: {
+                plugins: {
+                        legend: false, // Hide legend
+                        },
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        min: -10,
+                        max: 10,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    },
+                    y: {
+                        min: 0,
+                        max: 0.45,
+                        display: false
+                    }
+                }
+            }
+        };
+    
+        var myChart = new Chart(ctx3, chartConfig);
+    
+        function updateChart(variance) {
+            var data = [];
+            for (var x = -10; x <= 10; x += 0.1) {
+                data.push({
+                    x: x,
+                    y: 0.4 * Math.exp(-(Math.pow(x, 2) / (2 * Math.pow(variance, 2))))
+                   // y: Math.exp(-(Math.pow(x, 2) / (2 * Math.pow(variance, 2))))
+                });
+            }
+    
+            myChart.data.datasets[0].data = data;
+            myChart.update();
+        }
+    
+        slider.addEventListener('input', function () {
+            var variance = this.value;
+            varianceValue.textContent = variance;
+            updateChart(variance);
+        });
+    
+        // Initial update
+        updateChart(slider.value);
+    </script>
+</div>
+<center>
+    <font size="3"> 
+      <header> <b> Figure 4 </b></header>
+    </font> 
+</center>
+<br>
 <center>
     <font size="5"> 
       <header> <b> Part 1: Main Task of the Game: Guess the true value of an asset </b></header>
     </font> 
 </center>
-<p>
-    In this experiment, you are going to predict the realized value, denoted as θ, of a hypothetical asset. Its value follows a randomly distributed variable following the normal distribution: θ ∼ 𝑁(0,1). If you are not familiar with the normal distribution, here is some basic information about it. 
+<p> 
+    In this experiment, your main task is to predict the realized value of this hypothetical asset, denoted as \(\theta\). The mean of \(\theta\) is 0 and the variance is 1, same as shown in Figure 1. The realization of the true value is drawn at the beginning of each round, but you do not see the realized value immediately. Instead, you predict the value of \(\theta\) in each round based on two types of information (explained in Part 2) that help you guess the true value. Please click Next to proceed to Part 2.
 </p>
-<p>
-    <figure>
-        <img src="{{std_normal_distribution}}" style="width:900px;height:440px;"/>
-        <center><figcaption><b>Figure 1</b></figcaption></center>
-    </figure>
-</p>
-<p>
-    The shape of the normal distribution is a bell curve. The mean of θ is 0, and its variance is 1. This means that (as shown in the above Figure 1) <br>
-    (1) the probably that the realization of θ lies between [-1, 1] is 68%; <br>
-    (2) the probably that the realization of θ lies between [-2, 2] is 95%; and <br>
-    (3) the probably that the realization of θ lies between [-3, 3] is 99.7%.<br>
-    <b>
-        It is equally likely that the true value of θ is either greater or smaller than the mean zero. Also, the probability that the realization of θ is close to the mean 0 is larger than the probability that it is far away from the mean.
-    </b>
-    The realization of the true value, θ, is drawn at the beginning of each round, but you don’t see the realized value immediately. Instead, you predict the value of θ in each round based on two types of information (explained in Part 2) that help you guess the true value.
-</p>
+</body>
 {{ next_button }}
 {% endblock %}

@@ -205,7 +205,7 @@ class Task3_Instructions_maintask(Page):
        return player.round_number == 1
     
     def vars_for_template(self):
-        std_normal_distribution = '/static/std_normal_distribution.png'
+        std_normal_distribution = '/static/stdnormaldist.png'
 
         return {
                 'std_normal_distribution': std_normal_distribution,
