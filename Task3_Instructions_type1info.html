@@ -10,25 +10,35 @@
 {% endblock %} 
 
 {% block content %}
+<head>
+    <script type="text/javascript" async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <!-- <link rel="stylesheet" href="https://latex.now.sh/style.css"> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Normal Distribution with Slider (Chart.js)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 <center>
     <font size="5"> 
-      <header> <b> Part 2: Two Types of Information to Help You Guess the true value of Ө </b></header>
+      <header> <b> Part 2: Two Types of Information to Help You Guess the true value of \(\theta\) </b></header>
     </font> 
 </center>
-You will receive two types of information that will help you guess the true value of Ө. See details below.<br>
 <p>
     <b>Type 1: Color Information </b> <br>
     <b>Test Scores:</b> The 10 questions you just completed before this instruction are often used as non-verbal tests of intelligence. Scores on these IQ questions are ranked among today’s participants from highest (top, 1st) to lowest (bottom, 8th). Tie scores are broken randomly.
     </p>
 <p>
-    <b>Color Marking:</b> At the beginning of each round, the computer first randomly sorts all 8 traders into 4 pairs (2 traders each pair). In each pair, the trader with a higher (resp. lower) rank on the ten IQ questions is assigned to the H (resp. L) group. Then, the computer will randomly determine the true value of Ө. As shown in Figure 1, when the state is G, the H-group traders will be marked as <b style="color:Green;">Green</b>  and L-group traders will be marked as <b style="color:red;">Red</b>; the marking will be reversed if the state is B.
+    <b>Color Marking:</b> At the beginning of each round, the computer first randomly sorts all 8 traders into 4 pairs (2 traders each pair). In each pair, the trader with a higher (resp. lower) rank on the ten IQ questions is assigned to the H (resp. L) group. Then, the computer will randomly determine the true value of \(\theta\). As shown in Figure 1, when \(\theta > 0\), the H-group traders will be marked as <b style="color:Green;">Green</b>  and L-group traders will be marked as <b style="color:red;">Red</b>; the marking will be reversed if \(\theta < 0\).
 </p>
 <figure>
     <img src="{{grouping_img}}" style="width:900px;height:440px;"/>
     <center><figcaption><b>Figure 2</b></figcaption></center>
 </figure>
 <p>
-    You will NOT know whether you were assigned to the H or L group. But you will be told your group’s color (this is your color information) after the true value of Ө is determined. Your color may help you guess how likely the true state is G. 
+    You will NOT know whether you were assigned to the H or L group. But you will be told your group’s color (this is your color information) after the true value of \(\theta\) is determined. Your color may help you guess how likely that \(\theta \) is greater than 0. 
+</p>
+<p>
+    Please click Next to learn type 2 information.
 </p>
 {{ next_button }}
 {% endblock %}

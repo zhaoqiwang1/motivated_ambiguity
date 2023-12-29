@@ -25,11 +25,26 @@
 {% endblock %} 
 
 {% block content %}
+<head>
+    <script type="text/javascript" async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <!-- <link rel="stylesheet" href="https://latex.now.sh/style.css"> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Normal Distribution with Slider (Chart.js)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 <center>
     <font size="5"> 
       <header> <b> Part 3: Survey Pages For Payment </b></header>
     </font> 
 </center>
+<ul>
+    <li>On this page, the computer will show you your type 2 information, i.e., your private signal.</li>
+    <li>The box of "Visualizing Basic Information" reminds you about the basic information of the game, including the color determination and accuracy of private signal. You can adjust the slider to remind yourself about what does the accuracy of your private signal mean.</li>
+    <li>The box of "Information You Receive" shows you your information.</li>
+    <li>Given the above information, you need to update your beliefs and answer Question 1 and Question 2 truthfully.</li>
+    <li>Once you finished answering the two questions, click Next to proceed.</li>
+</ul>
 <div class="distribution_viz">
     <center>
         <font size="5"> 
@@ -45,8 +60,8 @@
     <body>
         <p>
             The graph below shows <b style="color:steelblue;">The Distribution of &theta;</b> and 
-            <b style="color:orange;">The Distribution of &sigma;</b>. You can change the accuracy of &sigma; 
-            by adjusting the slider below. This will help you visualize the accurate of each &sigma; value (from 0.25 to 4).
+            <b style="color:orange;">The Distribution of private signal \(s\)</b>. You can change the accuracy of \(var_{s}\); 
+            by adjusting the slider below. This will help you visualize the accurate of each \(var_{s}\); which takes values from 0.25 and 4.
         </p>
     <label for="varianceSlider"><p style="color:orange;">Adjust the Accuracy:</p></label>
     <input type="range" min="0.25" max="4" value="4" id="varianceSlider" step="0.05">
@@ -161,7 +176,7 @@
 </div>
 <figure>
     <img src="{{survey2_img}}" style="width:900px;height:250px;"/>
-    <center><figcaption><b>Figure 2</b></figcaption></center>
+    <center><figcaption><b>User Interface for Type 2 Information</b></figcaption></center>
 </figure>
 {{ next_button }}
 {% endblock %}

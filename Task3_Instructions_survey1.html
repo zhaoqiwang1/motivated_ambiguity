@@ -10,26 +10,36 @@
 {% endblock %} 
 
 {% block content %}
+<head>
+    <script type="text/javascript" async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <!-- <link rel="stylesheet" href="https://latex.now.sh/style.css"> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Normal Distribution with Slider (Chart.js)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 <center>
     <font size="5"> 
       <header> <b> Part 3: Survey Pages For Payment </b></header>
     </font> 
 </center>
 <p>
-    In each round, you need to answer two questions multiple times. The more accurate your answers, the more extra payment you will receive. The number of times you need to answer the survey questions depends on the number of private signal s_{t} you receive in round t. You will play 18 - 24 rounds in today’s session. We randomly pick half of the rounds to send you one private signal, s_{t}; and in the other half rounds, you will receive two private signals, which are independent from each other. Please note that once the range of the private signal is determined for a round, the private signal s_{t} is determined by the same range, regardless of whether you receive one or two signals.<br>
+    In each round, you need to answer two questions multiple times. The more accurate your answers, the more extra payment you will receive. The number of times you need to answer the survey questions depends on the number of private signal \(s\) you receive in each round. <br>
+    You will play 18 - 24 rounds in today’s session. We randomly pick half of the rounds to send you one private signal, \(s\); and in the other half rounds, you will receive two private signals, which are independent from each other. <br>
+    Please note that once the accuracy of the private signal (\(var_{s}\)) is determined for a round, the private signal \(s\) is drawn from the same <b style="color:orange;">orange</b> distribution, regardless of whether you receive one or two signals.<br>
     The questions are as follows.<br>
-    <b>Question 1: Please make a guess of the true value of the asset in this round.</b> Please enter a number that reflects your belief; if you think that, given the current information, the true value of Ө is 65, then type 65 into the answer box.<br>
-    <b>Question 2: Please make a guess of the range that was picked for your private signal in this round.</b> Given the current information, you need to guess the accuracy (a value between 0.25 and 4) of your private signal, s, in this round.<br>
+    <b>Question 1: Please make a guess of the true value of the asset in this round.</b> Please enter a number that reflects your belief; if you think that, given the current information, the true value of \(\theta\) is 65, then type 65 into the answer box.<br>
+    <b>Question 2: Please make a guess of the accuracy of your private signal in this round. (A value between 0.25 and 4)</b> Given the current information, you need to guess the accuracy, i.e., \(var_{s}\) of your private signal, \(s\), in this round.<br>
 </p>
 <p>
-    The first survey comes right after the computer shows you your color, red or green. You need to answer question 1 after receiving your color. 
+    The first survey comes right after the computer shows you your color, <b style="color:green;">green</b> or <b style="color:red;">red</b>. You need to answer question 1 after receiving your color. Please see the User Interface below.
 </p>
 <figure>
     <img src="{{survey1_img}}" style="width:900px;height:1000px;"/>
-    <center><figcaption><b>Figure 2</b></figcaption></center>
+    <center><figcaption><b>User Interface for Type 1 Information</b></figcaption></center>
 </figure>
 <p>
-    Then, click the “Next” button to go to the second survey, and then the computer shows you your private signal S_{t}. Using both private signals to update your beliefs, you need to answer question 1 and question 2 according to your updated beliefs. Half of the rounds display “Survey Page 1” and “Survey Page 2”.
+    Then, click the “Next” button to go to the second survey.
 </p>
 {{ next_button }}
 {% endblock %}
