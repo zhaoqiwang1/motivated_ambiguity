@@ -198,14 +198,26 @@ class Task2(Page):
        return player.round_number == 1
     form_model = 'player'
     form_fields = ['Ambiguity_attitude_elicit1','Ambiguity_attitude_elicit2','Ambiguity_attitude_elicit3',     'Ambiguity_attitude_elicit4','Ambiguity_attitude_elicit5','Ambiguity_attitude_elicit6','Ambiguity_attitude_elicit7','Ambiguity_attitude_elicit8','Ambiguity_attitude_elicit9','Ambiguity_attitude_elicit10']
-        
+
+class Task3_Instructions_basicmath(Page):
+    @staticmethod
+    def is_displayed(player):
+       return player.round_number == 1
+    
+    def vars_for_template(self):
+        std_normal_distribution = '/static/stdnormaldist.png'
+
+        return {
+                'std_normal_distribution': std_normal_distribution,
+            }
+           
 class Task3_Instructions_maintask(Page):
     @staticmethod
     def is_displayed(player):
        return player.round_number == 1
     
     def vars_for_template(self):
-        std_normal_distribution = '/static/std_normal_distribution.png'
+        std_normal_distribution = '/static/stdnormaldist.png'
 
         return {
                 'std_normal_distribution': std_normal_distribution,
@@ -566,7 +578,7 @@ class Payoff_page(Page):
                 }
               
 page_sequence = [Task2_Instructions, Task2, 
-                 Task3_Instructions_maintask, Task3_Instructions_type1info, Task3_Instructions_type2info, 
+                 Task3_Instructions_basicmath, Task3_Instructions_maintask, Task3_Instructions_type1info, Task3_Instructions_type2info, 
                  Task3_Instructions_survey1, Task3_Instructions_survey2, Task3_Instructions_survey2_2, Task3_Instructions_pay_time,
                  Test_questions, WaitPage1,  Task3_color, Task3_priv_signal1, Task3_priv_signal2, Practice_done, Payoff_page]
 

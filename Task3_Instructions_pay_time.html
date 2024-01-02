@@ -6,21 +6,57 @@
 {% endblock %}
 
 {% block styles %}
-
+<style>
+    .distribution_viz {
+      position: relative;
+      overflow: auto;
+      height: 600px;
+      width: 1000px;
+      border: 3px solid #666;
+    }
+    .information {
+      position: relative;
+      overflow: auto;
+      height: 230px;
+      width: 1000px;
+      border: 3px solid #666;
+    }
+  </style>
 {% endblock %} 
 
 {% block content %}
+<head>
+    <script type="text/javascript" async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <!-- <link rel="stylesheet" href="https://latex.now.sh/style.css"> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Normal Distribution with Slider (Chart.js)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 <center>
     <font size="5"> 
       <header> <b> Part 4: Your Payment and Session Timeline </b></header>
     </font> 
 </center>
 <p>
-    <b>Your Payment</b>
+    <b>Your Payment for Question 1.</b> <br>
+    The payoff for the prediction of true \(\theta\) task (Question 1) is going to be determined in the following way:
+    \[\text{Payoff for the prediction of asset value =} max\biggl\{ 1000 - \frac{1000}{16}\biggl(\text{Your prediction of \(\theta\)} - \text{The realized value of \(\theta\)}\biggr)^{2}, 0 \biggr\} \]
+    If your prediction equals to the realized value of \(\theta\), your payment will be 1000 experimental points. The difference between your prediction and realized value of \(\theta\) is your prediction error. Your payoff will be smaller when your prediction error is larger. Thus, the more accurate your prediction is, the more money you will earn.
+</p>
+<p>
+    <b>Your Payment for Question 2.</b> <br>
+    The payoff for the prediction of variance task (Question 2) is going to be determined in the following way:
+    \[\text{Payoff for the prediction of variance =} max\biggl\{ 1000 - \frac{1000}{16}\biggl(\text{Your prediction of variance} - \text{The realized value of variance}\biggr)^{2}, 0 \biggr\} \]
+    If your prediction equals to the realized value of the variance, your payment will be 1000 experimental points. The difference between your prediction and realized value of the variance is your prediction error. Your payoff will be smaller when your prediction error is larger. Thus, the more accurate your prediction is, the more money you will earn.
+</p>
+<p>
+    <b>Your Total payoff for Task 3</b> <br>
+     One of the rounds in today's session will be randomly selected for your payment: Your Total payoff for Task 3 = Your Payment for Question 1 + Your Payment for Question 2 in that randomly selected round. The unit of payment is US dollars.
 </p>
 <p>
     <b>Session Timeline</b><br>
-    You will play 18 - 24 rounds in today’s session, where half of the rounds contain survey pages 1 and 2 and the other half of rounds contain survey pages 1, 2, and 3. 
+    You will play 18 - 24 rounds in today’s session.
 </p>
 {{ next_button }}
 {% endblock %}

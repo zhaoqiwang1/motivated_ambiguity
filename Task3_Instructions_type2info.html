@@ -6,21 +6,171 @@
 {% endblock %}
 
 {% block styles %}
-
+<style>
+    .distribution_viz {
+      position: relative;
+      overflow: auto;
+      height: 600px;
+      width: 1000px;
+      border: 3px solid #666;
+    }
+    .information {
+      position: relative;
+      overflow: auto;
+      height: 230px;
+      width: 1000px;
+      border: 3px solid #666;
+    }
+  </style>
 {% endblock %} 
 
 {% block content %}
+<head>
+    <script type="text/javascript" async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <!-- <link rel="stylesheet" href="https://latex.now.sh/style.css"> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Normal Distribution with Slider (Chart.js)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 <center>
     <font size="5"> 
-      <header> <b> Part 2: Two Types of Information to Help You Guess the true value of Ө </b></header>
+      <header> <b> Part 2: Two Types of Information to Help You Guess the true value of \(\theta\) </b></header>
     </font> 
 </center>
 <p>
     <b>Type 2: Noisy Private Signal Information</b><br>
-    The private signal tells you information about the realization of θ in this particular round. In each round, the private signal s equals θ plus a noise term e, which follows a similar distribution but with different variances in different rounds. Therefore, the noise term e takes different realizations in each round.<br>
-    Specifically, s = θ + e, where e ~ 𝑁(0, σ^2).<br>
-    In the above equation, θ is the realized unknown true value of θ you are trying to forecast. The private signal is the true value of θ plus a normally distributed error term having a mean of zero and an unknown variance of σ^2. The realization of the error term e is a random draw from the same distribution for all participants. The private signal s contains information about the true value of θ.<br>
-    We do not know the exact value of the variance 𝜎𝑠2. We only know that the variance 𝜎𝑠2 ⁡is between 0.25 and 4. That is, the lowest possible value of the variance is 0.25, and the highest possible value of the variance is 4. The realization of the variance of the private signal is randomly drawn at the beginning of each period.
+    The private signal (denoted as \(s\)) contains information about the realization of \(\theta\) in a particular round. <br>
+    In each round, once the true value of \(\theta\) is randomly determined. The private signal \(s\) is drawn from a new normal distribution that is centered around the true \(\theta\) with a variance of \(var_{s}\). Therefore, the realizations of your private signal \(s\) is randomly drawn at the beginning of each round and is different in different round. Please see the graph below for an example.<br>
 </p>
+<p>
+    -- In the following example, let us suppose the true value of \(\theta\) equals 0.7 (plotted as the vertical dashed line). Then the private signal \(s\) is randomly drawn from a new normal distribution (colored in <b style="color:orange;">orange</b>) that is centered around 0.7 with a variance of \(var_{s}\). <br>
+    -- The variance of \(var_{s}\) takes different values in different rounds. We do not know the exact value of the variance \(var_{s}\) in each round. We only know that the lowest possible value of \(var_{s}\) is 0.25, and the highest possible value of \(var_{s}\) is 4. <br>
+    -- In each round, <b>the realization of variance \(var_{s}\) is randomly drawn between 0.25 and 4 at the beginning of each period. </b><br>
+    -- <b>From what we have learned in previous pages, we would know that a small (large) \(var_{s}\) indicates the private signal \(s\) is more (less) accurate, because the signal is drawn from a distribution that is more (less) concentrated around the true value of \(\theta\).</b> <br>
+    -- Please play around with the following slider to get a sense regarding how does the accuracy works for your private signal information.<br>
+</p>
+<div class="distribution_viz">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Normal Distribution with Slider (Chart.js)</title>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
+        <p>
+            The graph below shows <b style="color:steelblue;">The Distribution of &theta;</b> and 
+            <b style="color:orange;">The Distribution of private signal \(s\);</b>. You can change the accuracy of \(var_{s}\); 
+            by adjusting the slider below. This will help you visualize the accurate of each \(var_{s}\); which takes values from 0.25 and 4.
+        </p>
+    <label for="varianceSlider"><p style="color:orange;">Adjust the Accuracy of Your Private Signal:</p></label>
+    <input type="range" min="0.25" max="4" value="4" id="varianceSlider" step="0.05">
+    <span id="varianceValue">4</span>
+    <br>
+    <font size="4"> 
+        <p style="margin-left: 100px; display: inline;">
+            <b>  If &theta; < 0: H &rarr; <b style="color:red;">Red</b> & L &rarr; <b style="color:#32CD32;">Green</b> </b>
+        </p>            
+        <p style="margin-left: 300px; display: inline;">
+            <b>  If &theta; > 0: H &rarr; <b style="color:#32CD32;">Green</b> & L &rarr; <b style="color:red;">Red</b> </b>
+        </p>
+    </font> 
+    <canvas id="normalDistributionChart" width="450" height="180"></canvas>
+    
+    <script>
+        var ctx = document.getElementById('normalDistributionChart').getContext('2d');
+        var slider = document.getElementById('varianceSlider');
+        var varianceValue = document.getElementById('varianceValue');
+        
+        var verticalline1 = [{x: 0.7, y: 0}, {x: 0.7, y: 0.5}];
+
+        var data_std_normal = [];
+            for (var x = -10; x <= 10; x += 0.1) {
+                var y = (1 / Math.sqrt(2 * Math.PI)) * Math.exp(-0.5 * x * x);
+                data_std_normal.push({ x: x, y: y });
+            }
+    
+        var chartConfig = {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    //label: '',
+                    borderColor: 'orange',
+                    data: [],
+                    pointRadius: 0,
+                    fill: false
+                },
+                {
+                    //label: 'Distribution of'+ '&Theta',
+                    borderColor: 'rgba(70, 130, 180, 0.2)',
+                    backgroundColor: 'rgba(70, 130, 180, 0.6)', // SteelBlue with some transparency
+                    data: data_std_normal,
+                    pointRadius: 0,
+                    fill: true,
+                    showLine: true, // Connect scatter points with a line
+                },
+               {
+                    borderColor: 'rgba(70, 130, 180, 0.9)',
+                    borderWidth: 2,
+                    data: verticalline1,
+                    borderDash: [5],
+                    pointRadius: 0,
+                    showLine: true,
+                    fill: false,
+                }]
+            },
+            options: {
+                plugins: {
+                        legend: false, // Hide legend
+                        },
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        min: -10,
+                        max: 10,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    },
+                    y: {
+                        min: 0,
+                        max: 0.45,
+                        display: false
+                    }
+                }
+            }
+        };
+    
+        var myChart = new Chart(ctx, chartConfig);
+    
+        function updateChart(variance) {
+            var data = [];
+            for (var x = -10; x <= 10; x += 0.1) {
+                data.push({
+                    x: x+0.7,
+                    y: 0.4 * Math.exp(-(Math.pow(x, 2) / (2 * Math.pow(variance, 2))))
+                   // y: Math.exp(-(Math.pow(x, 2) / (2 * Math.pow(variance, 2))))
+                });
+            }
+    
+            myChart.data.datasets[0].data = data;
+            myChart.update();
+        }
+    
+        slider.addEventListener('input', function () {
+            var variance = this.value;
+            varianceValue.textContent = variance;
+            updateChart(variance);
+        });
+    
+        // Initial update
+        updateChart(slider.value);
+    </script>
+    </body>
+</div>
+<br>
+Please click Next to proceed to the next page to learn how you should accomplish your main task. 
 {{ next_button }}
 {% endblock %}
