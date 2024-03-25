@@ -6,7 +6,7 @@ import csv
 class C(BaseConstants):
     NAME_IN_URL = 'motivated_ambiguity'
     PLAYERS_PER_GROUP = 2
-    NUM_ROUNDS = 4
+    NUM_ROUNDS = 22
 
 
 class Subsession(BaseSubsession):
