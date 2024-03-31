@@ -39,75 +39,21 @@
     <br>
     You need to choose a box (K or U), and one ball is drawn randomly from the selected box. You will earn a fixed $3 if a <b> black</b> ball is drawn. 
     </br>
+    <!-- 
     <br>
     <b>Remember: You may only switch once between the two boxes, please DO NOT switch back and forth.</b>
   </br>
-    <br>
-    Please make your choices on column 3 below:
-    </br>
-    <p>  </p>
-        <table>
-          <tr>
-            <th>Box K</th>
-            <th>Box U</th>
-            <th>Your Choice</th>
-          </tr>
-          <tr>
-            <td>100</td>
-            <td>Unknown</td>
-            <td> {% formfield player.Ambiguity_attitude_elicit10 %}</td>
-          </tr>
-          <tr>
-            <td>90</td>
-            <td>Unknown</td>
-            <td>{% formfield player.Ambiguity_attitude_elicit9 %}</td>
-          </tr>
-          <tr>
-            <td>80</td>
-            <td>Unknown</td>
-            <td>{% formfield player.Ambiguity_attitude_elicit8 %}</td>
-          </tr>
-          <tr>
-            <td>70</td>
-            <td>Unknown</td>
-            <td>{% formfield player.Ambiguity_attitude_elicit7 %}</td>
-          </tr>
-          <tr>
-            <td>60</td>
-            <td>Unknown</td>
-            <td>{% formfield player.Ambiguity_attitude_elicit6 %}</td>
-          </tr>
-          <tr>
-            <td>50</td>
-            <td>Unknown</td>
-            <td>{% formfield player.Ambiguity_attitude_elicit5 %}</td>
-          </tr>
-          <tr>
-            <td>40</td>
-            <td>Unknown</td>
-            <td>{% formfield player.Ambiguity_attitude_elicit4 %}</td>
-          </tr>
-          <tr>
-            <td>30</td>
-            <td>Unknown</td>
-            <td>{% formfield player.Ambiguity_attitude_elicit3 %}</td>
-          </tr>
-          <tr>
-            <td>20</td>
-            <td>Unknown</td>
-            <td>{% formfield player.Ambiguity_attitude_elicit2 %}</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>Unknown</td>
-            <td>{% formfield player.Ambiguity_attitude_elicit1 %}</td>
-          </tr>
-        </table>
-        
-        </body>
+  -->
     <p>
-        
-    </p>
+      <figure>
+        <center><img src="{{ambiguity_figure}}" style="width:400px;height:500px;"/></center>
+          <center><figcaption><b>Figure 1</b></figcaption></center>
+      </figure>
+  </p>
+    <br>
+    {% formfield player.Ambiguity_attitudes %}
+  </br>
+        </body>
    
     
 
