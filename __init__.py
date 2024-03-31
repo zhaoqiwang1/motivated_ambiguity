@@ -36,12 +36,20 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
 # 10 Choices for Eliciting Ambiguity Attitudes:
+    Ambiguity_attitudes = models.StringField(
+        choices=[1,2,3,4,5,6,7,8,9,10],
+        label = '''
+            Please indicate at which choice you would like to switch from Box K to Box U by selecting the dropdown menu below.
+            '''
+                )
+    """
     Ambiguity_attitude_elicit1 = models.StringField(
         choices=['Box K','Box U'],
         widget=widgets.RadioSelectHorizontal,
         label='''
         '''
     )
+ 
     Ambiguity_attitude_elicit2 = models.StringField(
         choices=['Box K','Box U'],
         widget=widgets.RadioSelectHorizontal,
@@ -96,24 +104,26 @@ class Player(BasePlayer):
         label='''
         '''
     )
-    Guess_of_theta_color = models.StringField(
+    """
+
+    Guess_of_theta_color = models.FloatField(
         label='''
         Question 1: Please make a guess of the true value of the asset in this round.
         ''')
-    Guess_of_theta_signal1 = models.StringField(
+    Guess_of_theta_signal1 = models.FloatField(
         label='''
         Question 1: Please make a guess of the true value of the asset in this round.
         ''')
-    Guess_of_sigma_signal1 = models.StringField(
+    Guess_of_sigma_signal1 = models.FloatField(
         label='''
         Question 2: Please make a guess of the accuracy of your private signal in this round. （A value between 0.25 and 4)
         '''
     )
-    Guess_of_theta_signal2 = models.StringField(
+    Guess_of_theta_signal2 = models.FloatField(
         label='''
         Question 1: Please make a guess of the true value of the asset in this round.
         ''')
-    Guess_of_sigma_signal2 = models.StringField(
+    Guess_of_sigma_signal2 = models.FloatField(
         label='''
         Question 2: Please make a guess of the accuracy of your private signal in this round. （A value between 0.25 and 4)
         '''
@@ -197,8 +207,16 @@ class Task2(Page):
     def is_displayed(player):
        return player.round_number == 1
     form_model = 'player'
-    form_fields = ['Ambiguity_attitude_elicit1','Ambiguity_attitude_elicit2','Ambiguity_attitude_elicit3',     'Ambiguity_attitude_elicit4','Ambiguity_attitude_elicit5','Ambiguity_attitude_elicit6','Ambiguity_attitude_elicit7','Ambiguity_attitude_elicit8','Ambiguity_attitude_elicit9','Ambiguity_attitude_elicit10']
+  # form_fields = ['Ambiguity_attitude_elicit1','Ambiguity_attitude_elicit2','Ambiguity_attitude_elicit3',     'Ambiguity_attitude_elicit4','Ambiguity_attitude_elicit5','Ambiguity_attitude_elicit6','Ambiguity_attitude_elicit7','Ambiguity_attitude_elicit8','Ambiguity_attitude_elicit9','Ambiguity_attitude_elicit10','Ambiguity_attitudes']
+    form_fields = ['Ambiguity_attitudes']
+    def vars_for_template(self):
+        
+        ambiguity_figure = '/static/ambiguity_elicit.png'
 
+        return {
+                'ambiguity_figure': ambiguity_figure,
+            }
+    
 class Task3_Instructions_basicmath(Page):
     @staticmethod
     def is_displayed(player):
@@ -520,10 +538,10 @@ class Payoff_page(Page):
               
         def vars_for_template(player):
                 # The true values of theta are stored in the following list:
-                true_theta_list = [10,20,30,40,50,60]
-              
+                true_theta_list = [-3.1,-1.4,4.52,0.95,0.1,-1.66,-1.17,3.67,-6.2,2.27,0.26,-0.84,-0.91,0.48,4.66,-1.26,-2.28,0.63,-2.1,1.63]
+                true_variance_list = [3.36,2.48,0.91,3.33,1.71,0.71,2.37,1.87,3.4,2.9,2.04,0.41,3.41,3.79,1.22,3.52,0.35,1.66,3.39,1.35]
                 # The following code privdes a random round to determine our payoffs:
-                list_rounds = [3, 4, 5, 6]
+                list_rounds = [3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22]
                 Random_picked_round = random.choice(list_rounds)
                 # "Random_round_player" tells the followup codes which randomly picked round should we access 
                 # player's elicited beliefs.
@@ -537,26 +555,27 @@ class Payoff_page(Page):
                 ###############################################################
                 # The following code calculates our payoff (in Experimental points) of the randomly selected round.
                 # Please note that "payoff_theta_signal2" is only available in rounds with two private signals.
-                if Random_picked_round == 3:
+                if Random_picked_round == 3 or Random_picked_round == 7 or Random_picked_round == 8 or Random_picked_round == 9 \
+                   or Random_picked_round == 11 or Random_picked_round == 13 or Random_picked_round == 15 or Random_picked_round == 16 \
+                    or Random_picked_round == 18 or Random_picked_round == 20:
                     # Below, we calculate each of the payoff earned by answering each question in that randomly picked round.
-                    payoff_theta_color = (int) (100 - (math.pow((Random_round_player.Guess_of_theta_color - true_theta_list[Random_picked_round-1]),2)))
-                    payoff_theta_signal1 = (int) (100 - (math.pow((Random_round_player.Guess_of_theta_signal1 - true_theta_list[Random_picked_round-1]),2)))
-                    payoff_theta_signal2 = (int) (100 - (math.pow((Random_round_player.Guess_of_theta_signal2 - true_theta_list[Random_picked_round-1]),2)))
+                    payoff_theta_color = max(1000 - (1000/16)*(math.pow(Random_round_player.Guess_of_theta_color - true_theta_list[Random_picked_round-3]),2),0)
+                    payoff_theta_signal1 = max(1000 - (1000/16)*(math.pow(Random_round_player.Guess_of_theta_signal1 - true_theta_list[Random_picked_round-3]),2),0)
+                    payoff_theta_signal2 = max(1000 - (1000/16)*(math.pow(Random_round_player.Guess_of_theta_signal2 - true_theta_list[Random_picked_round-3]),2),0)
+
+                    payoff_sigma_signal1 = max(1000 - (1000/16)*(math.pow(Random_round_player.Guess_of_sigma_signal1 - true_variance_list[Random_picked_round-3]),2),0)
+                    payoff_sigma_signal2 = max(1000 - (1000/16)*(math.pow(Random_round_player.Guess_of_sigma_signal2 - true_variance_list[Random_picked_round-3]),2),0)
                     # Below, we add up all the payoffs of that randomly picked round for our final payoff.
-                    payoff_of_random_round = payoff_theta_color + payoff_theta_signal1 + payoff_theta_signal2
-                elif Random_picked_round == 4:
-                    # Below, we calculate each of the payoff earned by answering each question in that randomly picked round.
-                    payoff_theta_color = (int) (100 - (math.pow((Random_round_player.Guess_of_theta_color - true_theta_list[Random_picked_round-1]),2)))
-                    payoff_theta_signal1 = (int) (100 - (math.pow((Random_round_player.Guess_of_theta_signal1 - true_theta_list[Random_picked_round-1]),2)))
-                    payoff_theta_signal2 = (int) (100 - (math.pow((Random_round_player.Guess_of_theta_signal2 - true_theta_list[Random_picked_round-1]),2)))
-                    # Below, we add up all the payoffs of that randomly picked round for our final payoff.
-                    payoff_of_random_round = payoff_theta_color + payoff_theta_signal1 + payoff_theta_signal2
+                    # we multliply by 0.6 to make sure round with 1 signal ends up with similar payoffs as round with 2 signals.
+                    payoff_of_random_round = 0.6*(payoff_theta_color + payoff_theta_signal1 + payoff_theta_signal2 + payoff_sigma_signal1 + payoff_sigma_signal2)
                 else:
                     # Below, we calculate each of the payoff earned by answering each question in that randomly picked round.
-                    payoff_theta_color = (int) (100 - (math.pow((Random_round_player.Guess_of_theta_color - true_theta_list[Random_picked_round-1]),2)))
-                    payoff_theta_signal1 = (int) (100 - (math.pow((Random_round_player.Guess_of_theta_signal1 - true_theta_list[Random_picked_round-1]),2)))
-                    # Below, we add up all the payoffs of that randomly picked round for our final payoff. 
-                    payoff_of_random_round = payoff_theta_color + payoff_theta_signal1
+                    payoff_theta_color = max(1000 - (1000/16)*(math.pow(Random_round_player.Guess_of_theta_color - true_theta_list[Random_picked_round-3]),2),0)
+                    payoff_theta_signal1 = max(1000 - (1000/16)*(math.pow(Random_round_player.Guess_of_theta_signal1 - true_theta_list[Random_picked_round-3]),2),0)
+
+                    payoff_sigma_signal1 = max(1000 - (1000/16)*(math.pow(Random_round_player.Guess_of_sigma_signal1 - true_variance_list[Random_picked_round-3]),2),0)
+                    # Below, we add up all the payoffs of that randomly picked round for our final payoff.
+                    payoff_of_random_round = payoff_theta_color + payoff_theta_signal1 + payoff_sigma_signal1 
                 ###############################################################
                 ###############################################################
                 ###############################################################
@@ -564,7 +583,7 @@ class Payoff_page(Page):
                 ###############################################################
                 ###############################################################
                 ###############################################################
-                conversion_rate = .002
+                conversion_rate = .0011
                 participation_fee = 7
                 IQ_test_payoff = 5
                 player.payoff = math.ceil(payoff_of_random_round*conversion_rate + participation_fee + IQ_test_payoff)
@@ -572,7 +591,8 @@ class Payoff_page(Page):
                 ###############################################################
                 ###############################################################
                 return {
-                   'true_theta_random_picked_round': true_theta_list[Random_picked_round-1],
+                   'true_theta_random_picked_round': true_theta_list[Random_picked_round-3],
+                   'true_variance_random_picked_round': true_variance_list[Random_picked_round-3],
                    'random_picked_round': Random_picked_round,
                    'payoff': payoff_of_random_round,
                 }
