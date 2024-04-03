@@ -106,24 +106,24 @@ class Player(BasePlayer):
     )
     """
 
-    Guess_of_theta_color = models.FloatField(
+    Guess_of_theta_color = models.StringField(
         label='''
         Question 1: Please make a guess of the true value of the asset in this round.
         ''')
-    Guess_of_theta_signal1 = models.FloatField(
+    Guess_of_theta_signal1 = models.StringField(
         label='''
         Question 1: Please make a guess of the true value of the asset in this round.
         ''')
-    Guess_of_sigma_signal1 = models.FloatField(
+    Guess_of_sigma_signal1 = models.StringField(
         label='''
         Question 2: Please make a guess of the accuracy of your private signal in this round. （A value between 0.25 and 4)
         '''
     )
-    Guess_of_theta_signal2 = models.FloatField(
+    Guess_of_theta_signal2 = models.StringField(
         label='''
         Question 1: Please make a guess of the true value of the asset in this round.
         ''')
-    Guess_of_sigma_signal2 = models.FloatField(
+    Guess_of_sigma_signal2 = models.StringField(
         label='''
         Question 2: Please make a guess of the accuracy of your private signal in this round. （A value between 0.25 and 4)
         '''
@@ -559,21 +559,21 @@ class Payoff_page(Page):
                    or Random_picked_round == 11 or Random_picked_round == 13 or Random_picked_round == 15 or Random_picked_round == 16 \
                     or Random_picked_round == 18 or Random_picked_round == 20:
                     # Below, we calculate each of the payoff earned by answering each question in that randomly picked round.
-                    payoff_theta_color = max(1000 - (1000/16)*(math.pow(Random_round_player.Guess_of_theta_color - true_theta_list[Random_picked_round-3]),2),0)
-                    payoff_theta_signal1 = max(1000 - (1000/16)*(math.pow(Random_round_player.Guess_of_theta_signal1 - true_theta_list[Random_picked_round-3]),2),0)
-                    payoff_theta_signal2 = max(1000 - (1000/16)*(math.pow(Random_round_player.Guess_of_theta_signal2 - true_theta_list[Random_picked_round-3]),2),0)
+                    payoff_theta_color = max(1000 - (1000/16)*(math.pow(float(Random_round_player.Guess_of_theta_color) - true_theta_list[Random_picked_round-3]),2),0)
+                    payoff_theta_signal1 = max(1000 - (1000/16)*(math.pow(float(Random_round_player.Guess_of_theta_signal1) - true_theta_list[Random_picked_round-3]),2),0)
+                    payoff_theta_signal2 = max(1000 - (1000/16)*(math.pow(float(Random_round_player.Guess_of_theta_signal2) - true_theta_list[Random_picked_round-3]),2),0)
 
-                    payoff_sigma_signal1 = max(1000 - (1000/16)*(math.pow(Random_round_player.Guess_of_sigma_signal1 - true_variance_list[Random_picked_round-3]),2),0)
-                    payoff_sigma_signal2 = max(1000 - (1000/16)*(math.pow(Random_round_player.Guess_of_sigma_signal2 - true_variance_list[Random_picked_round-3]),2),0)
+                    payoff_sigma_signal1 = max(1000 - (1000/16)*(math.pow(float(Random_round_player.Guess_of_sigma_signal1) - true_variance_list[Random_picked_round-3]),2),0)
+                    payoff_sigma_signal2 = max(1000 - (1000/16)*(math.pow(float(Random_round_player.Guess_of_sigma_signal2) - true_variance_list[Random_picked_round-3]),2),0)
                     # Below, we add up all the payoffs of that randomly picked round for our final payoff.
                     # we multliply by 0.6 to make sure round with 1 signal ends up with similar payoffs as round with 2 signals.
                     payoff_of_random_round = 0.6*(payoff_theta_color + payoff_theta_signal1 + payoff_theta_signal2 + payoff_sigma_signal1 + payoff_sigma_signal2)
                 else:
                     # Below, we calculate each of the payoff earned by answering each question in that randomly picked round.
-                    payoff_theta_color = max(1000 - (1000/16)*(math.pow(Random_round_player.Guess_of_theta_color - true_theta_list[Random_picked_round-3]),2),0)
-                    payoff_theta_signal1 = max(1000 - (1000/16)*(math.pow(Random_round_player.Guess_of_theta_signal1 - true_theta_list[Random_picked_round-3]),2),0)
+                    payoff_theta_color = max(1000 - (1000/16)*(math.pow(float(Random_round_player.Guess_of_theta_color) - true_theta_list[Random_picked_round-3]),2),0)
+                    payoff_theta_signal1 = max(1000 - (1000/16)*(math.pow(float(Random_round_player.Guess_of_theta_signal1) - true_theta_list[Random_picked_round-3]),2),0)
 
-                    payoff_sigma_signal1 = max(1000 - (1000/16)*(math.pow(Random_round_player.Guess_of_sigma_signal1 - true_variance_list[Random_picked_round-3]),2),0)
+                    payoff_sigma_signal1 = max(1000 - (1000/16)*(math.pow(float(Random_round_player.Guess_of_sigma_signal1) - true_variance_list[Random_picked_round-3]),2),0)
                     # Below, we add up all the payoffs of that randomly picked round for our final payoff.
                     payoff_of_random_round = payoff_theta_color + payoff_theta_signal1 + payoff_sigma_signal1 
                 ###############################################################
