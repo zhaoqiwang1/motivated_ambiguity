@@ -19,14 +19,9 @@
 {{ endblock }}
 {{ block content }}
 <p>
-    This Task will be repeated multiple times until the session ends. The current round number is: {{round_number}}.
+    The current round number is: {{round_number}}.
 </p>
-<p>
-    Please answer the following questions truthfully, because you can earn more money by doing so.
-</p>
-<p>   
-    Your IQ ranking is: {{ranking}}. 
-</p>
+
 <div class="distribution_viz">
     <center>
         <font size="5"> 
@@ -42,8 +37,8 @@
     <body>
     <p>
     The graph below shows <b style="color:steelblue;">The Distribution of &theta;</b> and 
-    <b style="color:orange;">The Distribution of &sigma;</b>. You can change the accuracy of &sigma; 
-    by adjusting the slider below. This will help you visualize the accurate of each &sigma; value (from 0.25 to 4).
+    <b style="color:orange;">The accuracy of your private signal</b>. You can change the accuracy of your private signal; 
+    by adjusting the slider below. This will help you visualize the accurate of the variance (a value from 0.25 to 4).
     </p>
     <label for="varianceSlider"><p style="color:orange;">Adjust the Accuracy:</p></label>
     <input type="range" min="0.25" max="4" value="4" id="varianceSlider" step="0.05">
@@ -151,29 +146,29 @@
     </center>
     <p>
         {% if color == 'green' %}
-        <b>Type 1: Your color in this period is <b style="color:#32CD32">{{color}}</b>.
+        <b>Type 1: Your color in this round is <b style="color:#32CD32">{{color}}</b>.
         {% else %}
-        <b>Type 1: Your color in this period is <b style="color:#ff0000">{{color}}</b>.
+        <b>Type 1: Your color in this round is <b style="color:#ff0000">{{color}}</b>.
         {% endif %}
     </p>
     
     <p>
         {% if ranking == 1 %}
-        <b>Type 2: Your Private Noisy Signal is {{r1_sigma_signal1}}.</b>
+        <b>Type 2: Your Private Signal is {{r1_sigma_signal1}}.</b>
         {% elif ranking == 2 %}
-        <b>Type 2: Your Private Noisy Signal is {{r2_sigma_signal1}}.</b>
+        <b>Type 2: Your Private Signal is {{r2_sigma_signal1}}.</b>
         {% elif ranking == 3 %}
-        <b>Type 2: Your Private Noisy Signal is {{r3_sigma_signal1}}.</b>
+        <b>Type 2: Your Private Signal is {{r3_sigma_signal1}}.</b>
         {% elif ranking == 4 %}
-        <b>Type 2: Your Private Noisy Signal is {{r4_sigma_signal1}}.</b>
+        <b>Type 2: Your Private Signal is {{r4_sigma_signal1}}.</b>
         {% elif ranking == 5 %}
-        <b>Type 2: Your Private Noisy Signal is {{r5_sigma_signal1}}.</b>
+        <b>Type 2: Your Private Signal is {{r5_sigma_signal1}}.</b>
         {% elif ranking == 6 %}
-        <b>Type 2: Your Private Noisy Signal is {{r6_sigma_signal1}}.</b>
+        <b>Type 2: Your Private Signal is {{r6_sigma_signal1}}.</b>
         {% elif ranking == 7 %}
-        <b>Type 2: Your Private Noisy Signal is {{r7_sigma_signal1}}.</b>
+        <b>Type 2: Your Private Signal is {{r7_sigma_signal1}}.</b>
         {% else %}
-        <b>Type 2: Your Private Noisy Signal is {{r8_sigma_signal1}}.</b>
+        <b>Type 2: Your Private Signal is {{r8_sigma_signal1}}.</b>
         {% endif %}
     </p>
 </div>

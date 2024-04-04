@@ -19,7 +19,7 @@
 {{ endblock }}
 {{ block content }}
 <p>
-    Please answer the following questions. IQ ranking is: {{ranking}}. The current round number is: {{round_number}}.
+    The current round number is: {{round_number}}.
 </p>
 <div class="distribution_viz">
     <center>
@@ -145,9 +145,9 @@
     </center>
     <p>
         {% if color == 'green' %}
-        <b>Your color in this period is <b style="color:#32CD32">{{color}}</b>
+        <b>Your color in this round is <b style="color:#32CD32">{{color}}</b>
        {% else %}
-        <b>Your color in this period is <b style="color:#ff0000">{{color}}</b>
+        <b>Your color in this round is <b style="color:#ff0000">{{color}}</b>
        {% endif %}
         </p> 
 </div>
