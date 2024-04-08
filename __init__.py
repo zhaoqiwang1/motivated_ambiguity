@@ -403,6 +403,8 @@ class WaitPage1(WaitPage):
 class Task3_color(Page):
         form_model = 'player'
         form_fields = ['Guess_of_theta_color']
+        timeout_seconds = 30
+            
         def vars_for_template(player):
              return {
  #               'Ambiguity_attitude_elicit1': player.Ambiguity_attitude_elicit1,
@@ -416,6 +418,8 @@ class Task3_color(Page):
 class Task3_priv_signal1(Page):
     form_model = 'player'
     form_fields = ['Guess_of_theta_signal1', 'Guess_of_sigma_signal1']
+    timeout_seconds = 30
+
     def vars_for_template(player):
         # Save players' signals by ranking. One by one:
         r1_signals_string = player.subsession.cfg_signals_rank1.split()
@@ -464,6 +468,8 @@ class Task3_priv_signal1(Page):
            }
  
 class Task3_priv_signal2(Page):
+        timeout_seconds = 30
+
         @staticmethod
         def is_displayed(player):
           if player.subsession.cfg_num_signals == 2:
